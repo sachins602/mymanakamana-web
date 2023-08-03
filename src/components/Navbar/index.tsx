@@ -1,7 +1,6 @@
+import * as React from 'react';
 
-import * as React from "react"
-
-import { cn } from "@/utils/utils"
+import { cn } from '@/utils/utils';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -10,55 +9,87 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from '@/components/ui/navigation-menu';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '../ui/dropdown-menu';
+import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
+import { useAuth } from '@/contexts/AuthContext';
+import { Button } from '../ui/button';
 
 export function Navbar() {
+  const { signed } = useAuth();
   return (
-    <div className="flex flex-row gap-4 p-4 h-20">
-
+    <div className='flex flex-row gap-4 p-4 h-20'>
       <NavigationMenuHead />
-
+      <DropdownMenu>
+        <DropdownMenuTrigger>
+          <Avatar>
+            <AvatarImage src='https://github.com/shadcn.png' />
+            <AvatarFallback>Profile</AvatarFallback>
+          </Avatar>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem>Profile</DropdownMenuItem>
+          {signed ? (
+            <DropdownMenuItem>
+              <Button> Logout</Button>
+            </DropdownMenuItem>
+          ) : (
+            <DropdownMenuItem>
+              <Button>Login</Button>
+            </DropdownMenuItem>
+          )}
+        </DropdownMenuContent>
+      </DropdownMenu>
     </div>
   );
 }
 
 const components: { title: string; href: string; description: string }[] = [
   {
-    title: "Alert Dialog",
-    href: "/docs/primitives/alert-dialog",
+    title: 'Alert Dialog',
+    href: '/docs/primitives/alert-dialog',
     description:
-      "A modal dialog that interrupts the user with important content and expects a response.",
+      'A modal dialog that interrupts the user with important content and expects a response.',
   },
   {
-    title: "Hover Card",
-    href: "/docs/primitives/hover-card",
+    title: 'Hover Card',
+    href: '/docs/primitives/hover-card',
     description:
-      "For sighted users to preview content available behind a link.",
+      'For sighted users to preview content available behind a link.',
   },
   {
-    title: "Progress",
-    href: "/docs/primitives/progress",
+    title: 'Progress',
+    href: '/docs/primitives/progress',
     description:
-      "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
+      'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
   },
   {
-    title: "Scroll-area",
-    href: "/docs/primitives/scroll-area",
-    description: "Visually or semantically separates content.",
+    title: 'Scroll-area',
+    href: '/docs/primitives/scroll-area',
+    description: 'Visually or semantically separates content.',
   },
   {
-    title: "Tabs",
-    href: "/docs/primitives/tabs",
+    title: 'Tabs',
+    href: '/docs/primitives/tabs',
     description:
-      "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
+      'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
   },
   {
-    title: "Tooltip",
-    href: "/docs/primitives/tooltip",
+    title: 'Tooltip',
+    href: '/docs/primitives/tooltip',
     description:
-      "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
+      'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
   },
-]
+];
 
 function NavigationMenuHead() {
   return (
@@ -67,19 +98,20 @@ function NavigationMenuHead() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Trekking</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              <div className="flex flex-row">
-                <img
-                  src="/mountain.jpeg"
-                />
-                <div className="flex flex-col">
-                  <ListItem href="/docs" title="Introduction">
+            <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] '>
+              <div className='flex flex-row'>
+                <img src='/mountain.jpeg' />
+                <div className='flex flex-col'>
+                  <ListItem href='/docs' title='Introduction'>
                     Re-usable components built using Radix UI and Tailwind CSS.
                   </ListItem>
-                  <ListItem href="/docs/installation" title="Installation">
+                  <ListItem href='/docs/installation' title='Installation'>
                     How to install dependencies and structure your app.
                   </ListItem>
-                  <ListItem href="/docs/primitives/typography" title="Typography">
+                  <ListItem
+                    href='/docs/primitives/typography'
+                    title='Typography'
+                  >
                     Styles for headings, paragraphs, lists...etc
                   </ListItem>
                 </div>
@@ -90,8 +122,8 @@ function NavigationMenuHead() {
         <NavigationMenuItem>
           <NavigationMenuTrigger>Tours</NavigationMenuTrigger>
           <NavigationMenuContent>
-            <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
-              {components.map((component) => (
+            <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] '>
+              {components.map(component => (
                 <ListItem
                   key={component.title}
                   title={component.title}
@@ -104,28 +136,28 @@ function NavigationMenuHead() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <a href="/activities" >
+          <a href='/activities'>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Activities
             </NavigationMenuLink>
           </a>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <a href="/packages" >
+          <a href='/packages'>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Our Packages
             </NavigationMenuLink>
           </a>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <a href="/blogs" >
+          <a href='/blogs'>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Blogs
             </NavigationMenuLink>
           </a>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <a href="/about-us" >
+          <a href='/about-us'>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               About Us
             </NavigationMenuLink>
@@ -133,12 +165,12 @@ function NavigationMenuHead() {
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>
-  )
+  );
 }
 
 const ListItem = React.forwardRef<
-  React.ElementRef<"a">,
-  React.ComponentPropsWithoutRef<"a">
+  React.ElementRef<'a'>,
+  React.ComponentPropsWithoutRef<'a'>
 >(({ className, title, children, ...props }, ref) => {
   return (
     <li>
@@ -146,18 +178,18 @@ const ListItem = React.forwardRef<
         <a
           ref={ref}
           className={cn(
-            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-            className
+            'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground',
+            className,
           )}
           {...props}
         >
-          <div className="text-sm font-medium leading-none">{title}</div>
-          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+          <div className='text-sm font-medium leading-none'>{title}</div>
+          <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
             {children}
           </p>
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = 'ListItem';
