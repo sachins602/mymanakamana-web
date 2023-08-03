@@ -65,7 +65,7 @@ export function BestSeller() {
               className=' shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
             >
               <div className='relative'>
-                <img src='/mountain.jpeg' />
+                <img src='/packagesbg.png' />
                 <span className='absolute px-4 py-2 font-semibold text-white bg-green-400 top-5'>
                   {' '}
                   {destination.Duration}{' '}

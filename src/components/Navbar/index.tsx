@@ -102,7 +102,7 @@ function NavigationMenuHead() {
           <NavigationMenuContent>
             <ul className='grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] '>
               <div className='flex flex-row'>
-                <img src='/mountain.jpeg' />
+                <img src='/packagesbg.png' />
                 <div className='flex flex-col'>
                   <ListItem href='/docs' title='Introduction'>
                     Re-usable components built using Radix UI and Tailwind CSS.
@@ -138,32 +138,24 @@ function NavigationMenuHead() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <a href='/activities'>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Activities
-            </NavigationMenuLink>
-          </a>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            Activities
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <a href='/packages'>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Our Packages
-            </NavigationMenuLink>
-          </a>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            Our Packages
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <a href='/blogs'>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              Blogs
-            </NavigationMenuLink>
-          </a>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            Blogs
+          </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <a href='/about-us'>
-            <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-              About Us
-            </NavigationMenuLink>
-          </a>
+          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+            About Us
+          </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>
     </NavigationMenu>

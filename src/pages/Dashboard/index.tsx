@@ -3,16 +3,13 @@ import { MajorDestination } from '../../components/MajorDestination';
 import { BestSeller } from '../../components/BestSeller';
 import { BlogAndTestimonial } from '../../components/BlogAndTestimonial';
 import { Whyus } from '../../components/Whyus';
-import { useAuth } from '@/contexts/AuthContext';
 
 export function Dashboard() {
-  const { user } = useAuth();
-  console.log(user, 'user');
   return (
     <div>
       {/* first image */}
       <div className='relative'>
-        <img src='/mountain.jpeg' />
+        <img src='/packagesbg.png' />
       </div>
       {/* about us */}
       <div className='grid lg:grid-cols-2 md:p-6 md:shadow-lg shadow-black/20'>
@@ -44,7 +41,7 @@ export function Dashboard() {
           </p>
         </div>
         <div className='order-first md:order-last'>
-          <img src='/about.webp' />
+          <img src='/about.png' />
         </div>
       </div>
       {/* popular pacakages */}

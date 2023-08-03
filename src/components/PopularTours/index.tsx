@@ -41,7 +41,7 @@ export function PopularTours() {
               className=' shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
             >
               <div>
-                <img src='/about.webp' />
+                <img src='/about.png' />
               </div>
               <div className='px-4 pt-2 pb-4 text-sm bg-white'>
                 <h5 className='text-base font-semibold'>
