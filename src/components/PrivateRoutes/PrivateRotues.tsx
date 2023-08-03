@@ -1,14 +1,9 @@
-import { useAuth } from "@/contexts/AuthContext";
-import { Navigate, Route } from "react-router-dom";
-
+import { useAuth } from '@/contexts/AuthContext';
+import { Navigate, Route } from 'react-router-dom';
 
 export function PrivateRoute({ ...props }) {
   const { signed } = useAuth();
-  return signed ? (
-    <Route {...props} />
-  ) : (
-    <Navigate to="/error" />
-  );
+  return signed ? <Route {...props} /> : <Navigate to='/login' />;
 }
 
 export function AdminRoute({ ...props }) {
@@ -16,6 +11,6 @@ export function AdminRoute({ ...props }) {
   return admin && signed ? (
     <Route {...props} />
   ) : (
-    <Navigate to="/error" />
+    <Navigate to='/admin-login' />
   );
 }

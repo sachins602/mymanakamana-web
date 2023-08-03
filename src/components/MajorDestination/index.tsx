@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import { Button } from '../ui/button';
 
@@ -12,70 +12,59 @@ export function MajorDestination() {
     {
       title: 'Everest View',
       imgLink: '/everest.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Annapurna',
       imgLink: '/annapurna.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Khaptad',
       imgLink: '/khaptad.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Pokhara',
       imgLink: '/pokhara.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Langtang',
       imgLink: '/everest.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Lumbini',
       imgLink: '/annapurna.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Poon Hill',
       imgLink: '/pokhara.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Langtang',
       imgLink: '/everest.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Lumbini',
       imgLink: '/annapurna.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Poon Hill',
       imgLink: '/pokhara.png',
-      style: ""
-
+      style: '',
     },
     {
       title: 'Langtang',
       imgLink: '/everest.png',
-      style: ""
-
+      style: '',
     },
-  ]
+  ];
   return (
     <div className='container w-full'>
       <Swiper
@@ -85,28 +74,32 @@ export function MajorDestination() {
         loop={true}
         watchOverflow={true}
         autoplay={{
-          "delay": 1000,
-          "disableOnInteraction": false,
-          "pauseOnMouseEnter": false,
-          "stopOnLastSlide": false,
-          "waitForTransition": true
+          delay: 1000,
+          disableOnInteraction: false,
+          pauseOnMouseEnter: false,
+          stopOnLastSlide: false,
+          waitForTransition: true,
         }}
         freeMode={true}
         navigation={true}
-
       >
-        {
-          majorDestinationList.map((destination, key) => {
-            return <SwiperSlide className='relative bg-blend-darken' key={key}>
+        {majorDestinationList.map((destination, key) => {
+          return (
+            <SwiperSlide
+              className='relative bg-blend-darken'
+              key={`major-${destination.title}${key}`}
+            >
               <img src={destination.imgLink} />
               <div className='absolute z-10 bottom-0 left-[28%]'>
-                <h2 className='text-white text-center pb-4 text-2xl'> {destination.title} </h2>
+                <h2 className='pb-4 text-2xl text-center text-white'>
+                  {' '}
+                  {destination.title}{' '}
+                </h2>
                 <Button className='bg-green-700'>Book Now </Button>
               </div>
             </SwiperSlide>
-          })
-        }
-
+          );
+        })}
       </Swiper>
     </div>
   );

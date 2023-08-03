@@ -21,11 +21,13 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '../ui/button';
+import { useNavigate } from 'react-router-dom';
 
 export function Navbar() {
   const { signed } = useAuth();
+  const navigate = useNavigate();
   return (
-    <div className='flex flex-row gap-4 p-4 h-20'>
+    <div className='flex flex-row h-20 gap-4 p-4'>
       <NavigationMenuHead />
       <DropdownMenu>
         <DropdownMenuTrigger>
@@ -44,7 +46,7 @@ export function Navbar() {
             </DropdownMenuItem>
           ) : (
             <DropdownMenuItem>
-              <Button>Login</Button>
+              <Button onClick={() => navigate('/login')}>Login</Button>
             </DropdownMenuItem>
           )}
         </DropdownMenuContent>
@@ -184,7 +186,7 @@ const ListItem = React.forwardRef<
           {...props}
         >
           <div className='text-sm font-medium leading-none'>{title}</div>
-          <p className='line-clamp-2 text-sm leading-snug text-muted-foreground'>
+          <p className='text-sm leading-snug line-clamp-2 text-muted-foreground'>
             {children}
           </p>
         </a>

@@ -1,25 +1,16 @@
-import bg from '/public/footerbg.png';
 import {
   AiFillInstagram,
   AiFillTwitterSquare,
   AiFillFacebook,
 } from 'react-icons/ai';
-const style = {
-  backgroundImage: bg,
-  backgroundSize: 'cover',
-  width: '100%',
-  height: '100%',
-};
+
 export function Footer() {
   return (
-    <footer
-      className='w-full p-4  border-t shadow md:flex md:items-center md:justify-between md:p-6 text-white'
-      style={style}
-    >
-      <div className='grid lg:grid-cols-4 md:grid-cols-2 gap-10 md:gap-20'>
+    <footer className='w-full text-white p-4 border-t shadow md:flex md:items-center md:justify-between md:p-6 bg-[url("./footerbg.png")]'>
+      <div className='grid gap-10 lg:grid-cols-4 md:grid-cols-2 md:gap-20'>
         <div>
           <h2 className='text-xl font-bold'>Contact Us</h2>
-          <p className='text-xs py-4'>
+          <p className='py-4 text-xs'>
             Forem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu
             turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus
             nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum
@@ -51,7 +42,7 @@ export function Footer() {
         {/* Start of top destination */}
         <div className='lg:pl-10'>
           <div>
-            <h2 className='text-xl font-bold pb-4'>Top Destination</h2>
+            <h2 className='pb-4 text-xl font-bold'>Top Destination</h2>
             <ul className='text-xs'>
               <li>
                 <a href='/'>Annapurna Base Camp</a>
@@ -67,7 +58,7 @@ export function Footer() {
 
           {/* Start of special offer */}
           <div className='pt-8'>
-            <h2 className='text-xl font-bold pb-4'>Special Offer</h2>
+            <h2 className='pb-4 text-xl font-bold'>Special Offer</h2>
             <ul className='text-xs'>
               <li>
                 <a href='/'>Annapurna Base Camp</a>
@@ -84,7 +75,7 @@ export function Footer() {
 
         {/* Start of Quick as */}
         <div>
-          <h2 className='text-xl font-bold pb-4'>Quick as</h2>
+          <h2 className='pb-4 text-xl font-bold'>Quick as</h2>
           <ul className='text-xs'>
             <li>
               <a href='/'>Home</a>
