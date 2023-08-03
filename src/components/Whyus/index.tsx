@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { SlCalender } from 'react-icons/sl'
 import { BiSupport } from 'react-icons/bi'
 import { AiFillCamera } from 'react-icons/ai'
@@ -52,7 +51,7 @@ export function Whyus() {
         </div>
 
         <div className="mx-auto">
-          <Image src='/mountain.jpeg' width={300} height={300} alt="person travel tour" />
+          <img src='/mountain.jpeg' />
 
         </div>
       </div>

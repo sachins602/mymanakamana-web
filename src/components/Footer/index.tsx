@@ -1,8 +1,8 @@
 
-import bg from 'public/footerbg.png'
+import bg from '/public/footerbg.png'
 import { AiFillInstagram, AiFillTwitterSquare, AiFillFacebook } from 'react-icons/ai'
 const style = {
-  backgroundImage: `url(${bg})`,
+  backgroundImage: bg,
   backgroundSize: 'cover',
   width: '100%',
   height: '100%',
