@@ -3,8 +3,11 @@ import { MajorDestination } from '../../components/MajorDestination';
 import { BestSeller } from '../../components/BestSeller';
 import { BlogAndTestimonial } from '../../components/BlogAndTestimonial';
 import { Whyus } from '../../components/Whyus';
+import { useAuth } from '@/contexts/AuthContext';
 
 export function Dashboard() {
+  const { user } = useAuth();
+  console.log(user, 'user');
   return (
     <div>
       {/* first image */}
@@ -12,9 +15,9 @@ export function Dashboard() {
         <img src='/mountain.jpeg' />
       </div>
       {/* about us */}
-      <div className='grid lg:grid-cols-2  md:p-6 md:shadow-lg shadow-black/20'>
+      <div className='grid lg:grid-cols-2 md:p-6 md:shadow-lg shadow-black/20'>
         <div className=''>
-          <h1 className='md:text-3xl text-2xl font-semibold md:pb-10 py-3 md:pt-5'>
+          <h1 className='py-3 text-2xl font-semibold md:text-3xl md:pb-10 md:pt-5'>
             {' '}
             <span className='text-green-500'>Mai Manakamana</span> Travels and
             Tours

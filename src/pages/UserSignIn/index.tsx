@@ -9,9 +9,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useAuth } from '@/contexts/AuthContext';
 import { useUserLoginMutation } from '@/hooks/user.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
 
 const formSchema = z.object({
@@ -21,6 +23,9 @@ const formSchema = z.object({
 
 export function UserSignIn() {
   const register = useUserLoginMutation();
+  const navigate = useNavigate();
+  const { signIn } = useAuth();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -34,10 +39,11 @@ export function UserSignIn() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
     register.mutate(values, {
       onSuccess: res => {
-        console.log(res.role, 'success');
+        signIn(res);
+
+        navigate('/');
       },
       onError: () => {
         console.log('error');

@@ -24,7 +24,7 @@ import { Button } from '../ui/button';
 import { useNavigate } from 'react-router-dom';
 
 export function Navbar() {
-  const { signed } = useAuth();
+  const { user, signOut } = useAuth();
   const navigate = useNavigate();
   return (
     <div className='flex flex-row h-20 gap-4 p-4'>
@@ -40,9 +40,9 @@ export function Navbar() {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>Profile</DropdownMenuItem>
-          {signed ? (
+          {user ? (
             <DropdownMenuItem>
-              <Button> Logout</Button>
+              <Button onClick={() => signOut()}>Logout</Button>
             </DropdownMenuItem>
           ) : (
             <DropdownMenuItem>

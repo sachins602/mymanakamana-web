@@ -58,10 +58,10 @@ export function BestSeller() {
         Our Best Selling Packages
       </h2>
       <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-11'>
-        {popularList.map(destination => {
+        {popularList.map((destination, i) => {
           return (
             <div
-              key={`best-seller-${destination.title}`}
+              key={`best-seller-${destination.title}${i}`}
               className=' shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
             >
               <div className='relative'>

@@ -1,8 +1,10 @@
-import { createContext, useContext, useState } from "react";
+import { SignInResponseType } from '@/@types/user';
+import { createContext, useContext, useEffect, useState } from 'react';
 
 export interface AuthContextData {
-  signed: boolean;
-  admin: boolean;
+  user: SignInResponseType | undefined;
+  signIn: (data: SignInResponseType) => void;
+  signOut: () => void;
 }
 
 interface Props {
@@ -14,13 +16,29 @@ const AuthContext = createContext({} as AuthContextData);
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
-  const [isUserLoggedIn] = useState(false);
-  const [isAdmin] = useState(false);
+  const [user, setUser] = useState<SignInResponseType>();
+
+  useEffect(() => {
+    const user = localStorage.getItem('user');
+    if (!user || user === '') {
+      setUser(undefined);
+    } else {
+      setUser(JSON.parse(user));
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
-        admin: isAdmin,
-        signed: isUserLoggedIn,
+        user: user,
+        signIn: (data: SignInResponseType) => {
+          localStorage.setItem('user', JSON.stringify(data));
+          setUser(data);
+        },
+        signOut: () => {
+          localStorage.setItem('user', '');
+          setUser(undefined);
+        },
       }}
     >
       {children}
