@@ -6,11 +6,13 @@ import { AdminDashboard } from './components/AdminDashboard';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { UserSignIn } from './pages/UserSignIn';
-import { AdminSignIn } from './pages/AdmnSignIn';
+import { AdminSignIn } from './pages/AdminSignIn';
 import { Activities } from './pages/Activities';
 import { AboutUs } from './pages/AboutUs';
 import { Blogs } from './pages/Blogs';
 import { OurPackages } from './pages/OurPackages';
+import { AdminCategory } from './pages/AdminCategory';
+import { AdminSideBar } from './components/AdminSideBar';
 
 function App() {
   const { pathname } = useLocation();
@@ -30,9 +32,11 @@ function App() {
           <Route path='/error' element={<h1>error</h1>} />
         </Routes>
         {pathname.slice(0, 6) === '/admin' ? null : <Footer />}
+        {pathname.slice(0, 6) === '/admin' ? <AdminSideBar /> : null}
         <Routes>
           <Route path='/admin' element={<AdminRoute />}>
             <Route path='/admin' element={<AdminDashboard />} />
+            <Route path='/admin/category' element={<AdminCategory />} />
           </Route>
           <Route path='/admin-login' element={<AdminSignIn />} />
         </Routes>

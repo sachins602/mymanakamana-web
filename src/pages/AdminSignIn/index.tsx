@@ -24,7 +24,8 @@ const formSchema = z.object({
 export function AdminSignIn() {
   const register = useAdminLoginMutation();
   const navigate = useNavigate();
-  const { signIn } = useAuth();
+  const { user, signIn } = useAuth();
+  console.log(user);
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({

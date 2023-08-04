@@ -7,8 +7,9 @@ export function PrivateRoute() {
 }
 
 export function AdminRoute() {
-  const { user } = useAuth();
-  return user && user.role === 'admin' ? (
+  const user = localStorage.getItem('user');
+
+  return user && JSON.parse(user).role === 'admin' ? (
     <Outlet />
   ) : (
     <Navigate to='/admin-login' />
