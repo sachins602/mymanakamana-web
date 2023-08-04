@@ -10,6 +10,10 @@ import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { UserSignIn } from './pages/UserSignIn';
 import { AdminSignIn } from './pages/AdmnSignIn';
+import { Activities } from './pages/Activities';
+import { AboutUs } from './pages/AboutUs';
+import { Blogs } from './pages/Blogs';
+import { OurPackages } from './pages/OurPackages';
 
 function App() {
   return (
@@ -19,6 +23,10 @@ function App() {
           <Navbar />
           <Routes>
             <Route path='/' element={<Dashboard />} />
+            <Route path='/activities' element={<Activities />} />
+            <Route path='/about-us' element={<AboutUs />} />
+            <Route path='/blogs' element={<Blogs />} />
+            <Route path='/packages' element={<OurPackages />} />
             <Route
               path='/test'
               element={

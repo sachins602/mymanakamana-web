@@ -138,22 +138,34 @@ function NavigationMenuHead() {
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+          <NavigationMenuLink
+            href='/activities'
+            className={navigationMenuTriggerStyle()}
+          >
             Activities
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+          <NavigationMenuLink
+            href='/packages'
+            className={navigationMenuTriggerStyle()}
+          >
             Our Packages
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+          <NavigationMenuLink
+            href='/blogs'
+            className={navigationMenuTriggerStyle()}
+          >
             Blogs
           </NavigationMenuLink>
         </NavigationMenuItem>
         <NavigationMenuItem>
-          <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+          <NavigationMenuLink
+            href='/about-us'
+            className={navigationMenuTriggerStyle()}
+          >
             About Us
           </NavigationMenuLink>
         </NavigationMenuItem>
