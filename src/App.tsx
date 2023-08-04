@@ -1,9 +1,6 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes, useLocation } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import {
-  AdminRoute,
-  PrivateRoute,
-} from './components/PrivateRoutes/PrivateRotues';
+import { AdminRoute } from './components/PrivateRoutes/PrivateRotues';
 import { Dashboard } from './pages/Dashboard';
 import { AdminDashboard } from './components/AdminDashboard';
 import { Navbar } from './components/Navbar';
@@ -16,43 +13,30 @@ import { Blogs } from './pages/Blogs';
 import { OurPackages } from './pages/OurPackages';
 
 function App() {
+  const { pathname } = useLocation();
   return (
     <div className='flex flex-col items-center min-h-screen'>
-      <BrowserRouter>
-        <AuthProvider>
-          <Navbar />
-          <Routes>
-            <Route path='/' element={<Dashboard />} />
-            <Route path='/activities' element={<Activities />} />
-            <Route path='/about-us' element={<AboutUs />} />
-            <Route path='/blogs' element={<Blogs />} />
-            <Route path='/packages' element={<OurPackages />} />
-            <Route
-              path='/test'
-              element={
-                <PrivateRoute>
-                  <h1>test</h1>
-                </PrivateRoute>
-              }
-            />
-            <Route path='/login' element={<UserSignIn />} />
+      <AuthProvider>
+        {pathname.slice(0, 6) === '/admin' ? null : <Navbar />}
+        <Routes>
+          <Route path='/' element={<Dashboard />} />
+          <Route path='/activities' element={<Activities />} />
+          <Route path='/about-us' element={<AboutUs />} />
+          <Route path='/blogs' element={<Blogs />} />
+          <Route path='/packages' element={<OurPackages />} />
 
-            <Route path='/error' element={<h1>error</h1>} />
-          </Routes>
-          <Footer />
-          <Routes>
-            <Route
-              path='/admin'
-              element={
-                <AdminRoute>
-                  <AdminDashboard />
-                </AdminRoute>
-              }
-            />
-            <Route path='/admin-login' element={<AdminSignIn />} />
-          </Routes>
-        </AuthProvider>
-      </BrowserRouter>
+          <Route path='/login' element={<UserSignIn />} />
+
+          <Route path='/error' element={<h1>error</h1>} />
+        </Routes>
+        {pathname.slice(0, 6) === '/admin' ? null : <Footer />}
+        <Routes>
+          <Route path='/admin' element={<AdminRoute />}>
+            <Route path='/admin' element={<AdminDashboard />} />
+          </Route>
+          <Route path='/admin-login' element={<AdminSignIn />} />
+        </Routes>
+      </AuthProvider>
     </div>
   );
 }

@@ -1,15 +1,15 @@
 import { useAuth } from '@/contexts/AuthContext';
-import { Navigate, Route } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
-export function PrivateRoute({ ...props }) {
+export function PrivateRoute() {
   const { user } = useAuth();
-  return user ? <Route {...props} /> : <Navigate to='/login' />;
+  return user ? <Outlet /> : <Navigate to='/login' />;
 }
 
-export function AdminRoute({ ...props }) {
+export function AdminRoute() {
   const { user } = useAuth();
   return user && user.role === 'admin' ? (
-    <Route {...props} />
+    <Outlet />
   ) : (
     <Navigate to='/admin-login' />
   );

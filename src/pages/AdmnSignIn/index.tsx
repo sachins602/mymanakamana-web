@@ -9,9 +9,11 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useUserLoginMutation } from '@/hooks/user.hook';
+import { useAuth } from '@/contexts/AuthContext';
+import { useAdminLoginMutation } from '@/hooks/admin.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
 
 const formSchema = z.object({
@@ -20,7 +22,10 @@ const formSchema = z.object({
 });
 
 export function AdminSignIn() {
-  const register = useUserLoginMutation();
+  const register = useAdminLoginMutation();
+  const navigate = useNavigate();
+  const { signIn } = useAuth();
+
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -36,7 +41,9 @@ export function AdminSignIn() {
     // ✅ This will be type-safe and validated.
     register.mutate(values, {
       onSuccess: res => {
-        console.log(res.role, 'success');
+        signIn(res);
+
+        navigate('/admin');
       },
       onError: () => {
         console.log('error');
