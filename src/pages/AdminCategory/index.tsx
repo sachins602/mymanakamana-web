@@ -11,19 +11,36 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useAddCategoryMutation } from '@/hooks/adminCategory.hook';
+import { useAddImageMutation } from '@/hooks/uploadImage.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 
+const MAX_FILE_SIZE = 500000;
+const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+];
+
 const formSchema = z.object({
   name: z.string().min(3).max(100),
-  image: z.any().optional(),
+  image: z
+    .any()
+    .refine(file => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+    .refine(
+      file => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+      'Only .jpg, .jpeg, .png and .webp formats are supported.',
+    )
+    .optional(),
   slogan: z.string().optional(),
   status: z.boolean().optional(),
 });
 
 export function AdminCategory() {
   const addCategory = useAddCategoryMutation();
+  const addPhoto = useAddImageMutation();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -39,7 +56,34 @@ export function AdminCategory() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const formData = new FormData();
+    formData.append('image', values.image);
+    formData.append('name', values.image.name);
+    addPhoto.mutate(formData, {
+      onSuccess: res => {
+        addCategory.mutate(
+          {
+            _id: '',
+            name: values.name,
+            image: res.path,
+            createdBy: 'admin',
+            slogan: values.slogan,
+            status: values.status ? values.status : false,
+          },
+          {
+            onSuccess: res => {
+              console.log(res);
+            },
+            onError: () => {
+              console.log('error');
+            },
+          },
+        );
+      },
+      onError: err => {
+        console.log(err, 'error');
+      },
+    });
     addCategory.mutate(
       {
         _id: '',
@@ -81,13 +125,26 @@ export function AdminCategory() {
           <FormField
             control={form.control}
             name='image'
-            render={({ field }) => (
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            render={({ field: { value, onChange, ...fieldProps } }) => (
               <FormItem>
-                <FormLabel>Image</FormLabel>
+                <FormLabel>Profile photo</FormLabel>
                 <FormControl>
-                  <Input placeholder='image' type='file' {...field} />
+                  <Input
+                    placeholder='Profile photo'
+                    type='file'
+                    accept='image/*'
+                    {...fieldProps}
+                    onChange={event =>
+                      onChange(
+                        event.target.files ? event.target.files[0] : null,
+                      )
+                    }
+                  />
                 </FormControl>
-                <FormDescription>Enter your image.</FormDescription>
+                <FormDescription>
+                  This is your public display name.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

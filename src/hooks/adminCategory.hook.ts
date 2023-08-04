@@ -1,11 +1,12 @@
 
+import { AddCategoryResponseType } from '@/@types/user';
 import { useMutation } from '@tanstack/react-query';
 
 export const useAddCategoryMutation = () => {
   return useMutation(async (data: {
     _id?: string;
     name: string;
-    image?: unknown;
+    image?: string;
     slogan?: string;
     createdBy: string;
     status: boolean
@@ -20,7 +21,7 @@ export const useAddCategoryMutation = () => {
       throw new Error('Network response was not ok');
     }
 
-    return await response.json();
+    return await response.json() as AddCategoryResponseType;
   }
   );
 }

@@ -1,4 +1,5 @@
 
+import { ImageResponseType } from '@/@types/user';
 import { useMutation } from '@tanstack/react-query';
 
 export const useAddImageMutation = () => {
@@ -13,7 +14,7 @@ export const useAddImageMutation = () => {
       throw new Error('Network response was not ok');
     }
 
-    return await response.json();
+    return await response.json() as ImageResponseType;
   }
   );
 }
