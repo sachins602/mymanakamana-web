@@ -35,3 +35,16 @@ export const useGetAllCategoryQuery = () => {
     return await response.json() as ViewCategoryResponseType;
   });
 }
+
+export const useDeleteCategoryQuery = () => {
+  return useMutation(async ({ id }: { id: string }) => {
+    const response = await fetch(`http://localhost:4000/api/category/delete/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return await response.json() as ViewCategoryResponseType;
+  })
+}

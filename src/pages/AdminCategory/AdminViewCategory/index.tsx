@@ -3,8 +3,11 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover';
-import { useGetAllCategoryQuery } from '@/hooks/adminCategory.hook';
-import { useGetImageQuery } from '@/hooks/image.hook';
+import {
+  useDeleteCategoryQuery,
+  useGetAllCategoryQuery,
+} from '@/hooks/adminCategory.hook';
+// import { useGetImageQuery } from '@/hooks/image.hook';
 
 import { AiOutlineEdit } from 'react-icons/ai';
 import AdminEditCategoryForm from '../AdminEditCategory';
@@ -31,21 +34,30 @@ import { Button } from '@/components/ui/button';
 import { Data } from '@/@types/user';
 
 function AdminViewCategory() {
-  const { data } = useGetAllCategoryQuery();
+  const { data: categoryData, refetch } = useGetAllCategoryQuery();
 
-  const { data: imageData } = useGetImageQuery({
-    fileName: '1691172530849img1.jpg',
-  });
+  const deleteCategory = useDeleteCategoryQuery();
 
   function handleDelete(item: Data): void {
-    console.log(item);
+    deleteCategory.mutate(
+      { id: item._id as string },
+      {
+        onSuccess: res => {
+          refetch();
+          console.log(res);
+        },
+        onError: error => {
+          console.log(error);
+        },
+      },
+    );
   }
 
   return (
     <div className='w-full'>
       <h1>Categories</h1>
       <div className='grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3'>
-        {data?.data?.map((item, index) => (
+        {categoryData?.data?.map((item, index) => (
           <Card key={index} className='w-72 h-80'>
             <CardHeader className='items-center'>
               <div className='space-x-8'>
@@ -89,13 +101,11 @@ function AdminViewCategory() {
               <CardDescription>Slogan: {item.slogan}</CardDescription>
             </CardHeader>
             <CardContent>
-              {imageData && (
-                <img
-                  className=''
-                  src={URL.createObjectURL(imageData)}
-                  alt={item.name}
-                />
-              )}
+              <img
+                className=''
+                src={'http://localhost:4000/api/media/file/' + item.image}
+                alt={item.name}
+              />
             </CardContent>
           </Card>
         ))}

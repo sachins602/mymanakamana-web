@@ -1,6 +1,6 @@
 
 import { ImageResponseType } from '@/@types/user';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQueries, useQuery } from '@tanstack/react-query';
 
 export const useAddImageMutation = () => {
   return useMutation(async (data: FormData) => {
@@ -27,3 +27,22 @@ export const useGetImageQuery = ({ fileName }: { fileName: string }) => {
     return await response.blob();
   });
 }
+
+export const useCallMultipleImagesQuery = ({ fileNames }: { fileNames: string[] }) => {
+  return useQueries({
+    queries: fileNames.map((fileName) => ({
+      queryKey: ['image', fileName],
+      queryFn: async () => {
+        const response = await fetch(`http://localhost:4000/api/media/file/${fileName}`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return await response.blob();
+      },
+    })),
+
+  },
+  )
+}
+
+
