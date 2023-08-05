@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useAddImageMutation } from '@/hooks/uploadImage.hook';
+import { useAddImageMutation } from '@/hooks/image.hook';
 
 const MAX_FILE_SIZE = 500000;
 const ACCEPTED_IMAGE_TYPES = [

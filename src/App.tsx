@@ -11,8 +11,9 @@ import { Activities } from './pages/Activities';
 import { AboutUs } from './pages/AboutUs';
 import { Blogs } from './pages/Blogs';
 import { OurPackages } from './pages/OurPackages';
-import { AdminCategory } from './pages/AdminCategory';
+import { AdminAddCategory } from './pages/AdminCategory/AdminAddCategory';
 import { AdminSideBar } from './components/AdminSideBar';
+import AdminViewCategory from './pages/AdminCategory/AdminViewCategory';
 
 function App() {
   const { pathname } = useLocation();
@@ -32,14 +33,25 @@ function App() {
           <Route path='/error' element={<h1>error</h1>} />
         </Routes>
         {pathname.slice(0, 6) === '/admin' ? null : <Footer />}
-        {pathname.slice(0, 6) === '/admin' ? <AdminSideBar /> : null}
-        <Routes>
-          <Route path='/admin' element={<AdminRoute />}>
-            <Route path='/admin' element={<AdminDashboard />} />
-            <Route path='/admin/category' element={<AdminCategory />} />
-          </Route>
-          <Route path='/admin-login' element={<AdminSignIn />} />
-        </Routes>
+        {pathname.slice(0, 6) === '/admin' && pathname !== '/admin-login' ? (
+          <AdminSideBar />
+        ) : null}
+        <div className='flex-1 ml-64'>
+          <Routes>
+            <Route path='/admin' element={<AdminRoute />}>
+              <Route path='/admin' element={<AdminDashboard />} />
+              <Route
+                path='/admin/category/add'
+                element={<AdminAddCategory />}
+              />
+              <Route
+                path='/admin/category/view'
+                element={<AdminViewCategory />}
+              />
+            </Route>
+            <Route path='/admin-login' element={<AdminSignIn />} />
+          </Routes>
+        </div>
       </AuthProvider>
     </div>
   );

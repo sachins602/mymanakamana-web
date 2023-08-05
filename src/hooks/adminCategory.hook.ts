@@ -1,6 +1,6 @@
 
-import { AddCategoryResponseType } from '@/@types/user';
-import { useMutation } from '@tanstack/react-query';
+import { CategoryResponseType, ViewCategoryResponseType } from '@/@types/user';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 export const useAddCategoryMutation = () => {
   return useMutation(async (data: {
@@ -21,7 +21,17 @@ export const useAddCategoryMutation = () => {
       throw new Error('Network response was not ok');
     }
 
-    return await response.json() as AddCategoryResponseType;
+    return await response.json() as CategoryResponseType;
   }
   );
+}
+
+export const useGetAllCategoryQuery = () => {
+  return useQuery(['category'], async () => {
+    const response = await fetch('http://localhost:4000/api/category/get-all');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return await response.json() as ViewCategoryResponseType;
+  });
 }

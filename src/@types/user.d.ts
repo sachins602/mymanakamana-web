@@ -11,9 +11,13 @@ export type ImageResponseType = {
   path?: string;
 }
 
-export type AddCategoryResponseType = {
+export type CategoryResponseType = {
   api_status?: string;
   data?: Data;
+}
+export type ViewCategoryResponseType = {
+  api_status?: string;
+  data?: Data[];
 }
 
 type Data = {
