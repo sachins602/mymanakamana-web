@@ -14,6 +14,8 @@ import { OurPackages } from './pages/OurPackages';
 import { AdminAddCategory } from './pages/AdminCategory/AdminAddCategory';
 import { AdminSideBar } from './components/AdminSideBar';
 import AdminViewCategory from './pages/AdminCategory/AdminViewCategory';
+import { AdminAddTrekking } from './pages/AdminTrekking/AdminAddTrekking';
+import AdminViewTrekking from './pages/AdminTrekking/AdminViewTrekking';
 
 function App() {
   const { pathname } = useLocation();
@@ -50,11 +52,11 @@ function App() {
               />
               <Route
                 path='/admin/trekking/add'
-                element={<AdminAddCategory />}
+                element={<AdminAddTrekking />}
               />
               <Route
                 path='/admin/trekking/view'
-                element={<AdminViewCategory />}
+                element={<AdminViewTrekking />}
               />
             </Route>
             <Route path='/admin-login' element={<AdminSignIn />} />

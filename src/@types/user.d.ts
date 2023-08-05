@@ -41,7 +41,7 @@ export type Trip = {
   imageGallery: string[];
   price: string;
   isSpecialOffer: boolean;
-  isSpanish: boolean;
+  isSpanish?: boolean;
   offerPrice?: string;
   pax2Price?: string;
   pax5price?: string;
@@ -101,4 +101,79 @@ export type Trip = {
   rating: number;
   status: boolean;
   createdby: string;
+}
+export type TripResponseType = {
+  api_status?: string;
+  data?: TripData[];
+}
+
+type TripData = {
+  summary?: Summary;
+  itinerary?: Itinerary;
+  _id?: string;
+  category?: string;
+  name?: string;
+  bannerImage?: string;
+  tripImage?: string;
+  video?: string;
+  imageGallery?: string[];
+  price?: string;
+  isSpecialOffer?: boolean;
+  offerPrice?: string;
+  pax2Price?: string;
+  pax5price?: string;
+  pax15price?: string;
+  pax16price?: string;
+  tripHighlight?: string[];
+  description?: string;
+  inclusion?: string[];
+  exclusion?: string[];
+  aboutTrip?: AboutTrip[];
+  faq?: AboutTrip[];
+  customerReview?: CustomerReview[];
+  totalViews?: number;
+  rating?: number;
+  status?: boolean;
+  createdon?: Date;
+  updatedon?: Date;
+  __v?: number;
+  mapImage?: string;
+  optionalInclusion?: string[];
+  pax10price?: string;
+  isSpanish?: boolean;
+  itemsYouNeedToBring?: string[];
+}
+
+type AboutTrip = {
+  head?: string;
+  headDetails?: string;
+  _id?: string;
+}
+
+type CustomerReview = {
+  userid?: string;
+  user?: string;
+  rating?: string;
+  comment?: string;
+  postedOn?: Date;
+  _id?: string;
+}
+
+type Itinerary = {
+  description?: string;
+  details?: { [key: string]: null | string }[];
+}
+
+type Summary = {
+  duration?: string;
+  destination?: string;
+  startPoint?: string;
+  endPoint?: string;
+  groupSize?: string;
+  difficulty?: string;
+  meals?: string;
+  accomodation?: string;
+  activities?: string;
+  maxaltitude?: string;
+  bestSeason?: string;
 }
