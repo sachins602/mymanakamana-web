@@ -9,19 +9,19 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-// import { Switch } from '@/components/ui/switch';
+import { Switch } from '@/components/ui/switch';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useFieldArray, useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
 
-// const MAX_FILE_SIZE = 2000000;
-// const ACCEPTED_IMAGE_TYPES = [
-//   'image/jpeg',
-//   'image/jpg',
-//   'image/png',
-//   'image/webp',
-// ];
+const MAX_FILE_SIZE = 2000000;
+const ACCEPTED_IMAGE_TYPES = [
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/webp',
+];
 function formatString(name: string) {
   return name
     .split('.')
@@ -106,11 +106,32 @@ export type Trip = {
 const formSchema = z.object({
   category: z.string(),
   name: z.string(),
-  // bannerImage: z.string().optional(),
-  // tripImage: z.string().optional(),
-  // mapImage: z.string().optional(),
+  bannerImage: z
+    .any()
+    .refine(file => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+    .refine(
+      file => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+      'Only .jpg, .jpeg, .png and .webp formats are supported.',
+    )
+    .optional(),
+  tripImage: z
+    .any()
+    .refine(file => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+    .refine(
+      file => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+      'Only .jpg, .jpeg, .png and .webp formats are supported.',
+    )
+    .optional(),
+  mapImage: z
+    .any()
+    .refine(file => file?.size <= MAX_FILE_SIZE, `Max image size is 5MB.`)
+    .refine(
+      file => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+      'Only .jpg, .jpeg, .png and .webp formats are supported.',
+    )
+    .optional(),
   price: z.string(),
-  // isSpecialOffer: z.boolean().optional(),
+  isSpecialOffer: z.boolean().optional(),
   offerPrice: z.string().optional(),
   summary: z.object({
     duration: z.string(),
@@ -159,7 +180,7 @@ const formSchema = z.object({
       }),
     )
     .optional(),
-  // status: z.boolean().default(true),
+  status: z.boolean().default(true),
 });
 
 const formFieldList = [
@@ -469,6 +490,113 @@ export function AdminAddTrekking() {
               Add Trip Highlight
             </Button>
           </div>
+          <FormField
+            control={form.control}
+            name='isSpecialOffer'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{formatString(field.name)}</FormLabel>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='status'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>{formatString(field.name)}</FormLabel>
+                <FormControl>
+                  <Switch
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='bannerImage'
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            render={({ field: { value, onChange, ...fieldProps } }) => (
+              <FormItem>
+                <FormLabel>Banner Image</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Banner Image'
+                    type='file'
+                    accept='image/*'
+                    {...fieldProps}
+                    onChange={event =>
+                      onChange(
+                        event.target.files ? event.target.files[0] : null,
+                      )
+                    }
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='tripImage'
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            render={({ field: { value, onChange, ...fieldProps } }) => (
+              <FormItem>
+                <FormLabel>Trip Image</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Trip Image'
+                    type='file'
+                    accept='image/*'
+                    {...fieldProps}
+                    onChange={event =>
+                      onChange(
+                        event.target.files ? event.target.files[0] : null,
+                      )
+                    }
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name='mapImage'
+            // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            render={({ field: { value, onChange, ...fieldProps } }) => (
+              <FormItem>
+                <FormLabel>Map Image</FormLabel>
+                <FormControl>
+                  <Input
+                    placeholder='Map Image'
+                    type='file'
+                    accept='image/*'
+                    {...fieldProps}
+                    onChange={event =>
+                      onChange(
+                        event.target.files ? event.target.files[0] : null,
+                      )
+                    }
+                  />
+                </FormControl>
+
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           <Button type='submit'>Submit</Button>
         </form>
       </Form>
