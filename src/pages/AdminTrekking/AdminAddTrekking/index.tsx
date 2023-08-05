@@ -11,7 +11,7 @@ import {
 import { Input } from '@/components/ui/input';
 // import { Switch } from '@/components/ui/switch';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
 
@@ -22,6 +22,14 @@ import * as z from 'zod';
 //   'image/png',
 //   'image/webp',
 // ];
+function formatString(name: string) {
+  return name
+    .split('.')
+    .map(item => {
+      return item.charAt(0).toUpperCase() + item.slice(1);
+    })
+    .join(' ');
+}
 
 export type Trip = {
   category: string;
@@ -98,11 +106,11 @@ export type Trip = {
 const formSchema = z.object({
   category: z.string(),
   name: z.string(),
-  bannerImage: z.string().optional(),
-  tripImage: z.string().optional(),
-  mapImage: z.string().optional(),
+  // bannerImage: z.string().optional(),
+  // tripImage: z.string().optional(),
+  // mapImage: z.string().optional(),
   price: z.string(),
-  isSpecialOffer: z.boolean().optional(),
+  // isSpecialOffer: z.boolean().optional(),
   offerPrice: z.string().optional(),
   summary: z.object({
     duration: z.string(),
@@ -116,7 +124,13 @@ const formSchema = z.object({
     accomodation: z.string().optional(),
     activities: z.string().optional(),
   }),
-  tripHighlight: z.array(z.string()).optional(),
+  tripHighlight: z
+    .array(
+      z.object({
+        text: z.string(),
+      }),
+    )
+    .optional(),
   description: z.string(),
   itinerary: z.object({
     description: z.string(),
@@ -131,18 +145,26 @@ const formSchema = z.object({
       }),
     ),
   }),
-  inclusion: z.array(z.string()).optional(),
-  optionalInclusion: z.array(z.string()).optional(),
-  exclusion: z.array(z.string()).optional(),
-  status: z.boolean().default(true),
+  inclusion: z
+    .array(
+      z.object({
+        text: z.string(),
+      }),
+    )
+    .optional(),
+  exclusion: z
+    .array(
+      z.object({
+        text: z.string(),
+      }),
+    )
+    .optional(),
+  // status: z.boolean().default(true),
 });
 
 const formFieldList = [
   'category',
   'name',
-  'bannerImage',
-  'tripImage',
-  'mapImage',
   'price',
   'offerPrice',
   'summary.duration',
@@ -169,11 +191,7 @@ export function AdminAddTrekking() {
     defaultValues: {
       category: '',
       name: '',
-      bannerImage: '',
-      tripImage: '',
-      mapImage: '',
       price: '',
-      isSpecialOffer: false,
       offerPrice: '',
       summary: {
         duration: '',
@@ -194,6 +212,40 @@ export function AdminAddTrekking() {
     },
   });
 
+  const {
+    fields: tripHighlightFields,
+    append: appendTripHighlight,
+    remove: removeTripHighlight,
+  } = useFieldArray({
+    name: 'tripHighlight',
+    control: form.control,
+  });
+
+  const {
+    fields: itineraryDetailsFields,
+    append: appendItineraryDetails,
+    remove: removeItineraryDetails,
+  } = useFieldArray({
+    name: 'itinerary.details',
+    control: form.control,
+  });
+  const {
+    fields: inclusionFields,
+    append: appendInclusion,
+    remove: removeInclusion,
+  } = useFieldArray({
+    name: 'inclusion',
+    control: form.control,
+  });
+  const {
+    fields: exclusionFields,
+    append: appendExclusion,
+    remove: removeExclusion,
+  } = useFieldArray({
+    name: 'exclusion',
+    control: form.control,
+  });
+
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
@@ -201,249 +253,10 @@ export function AdminAddTrekking() {
     console.log(values);
   }
   return (
-    <div>
+    <div className='w-96'>
       <h1>Add Trekking</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-          {/* <FormField
-            control={form.control}
-            name='category'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Category Name</FormLabel>
-                <FormControl>
-                  <Input placeholder='name' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Trekking name.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='name'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Trekking Name</FormLabel>
-                <FormControl>
-                  <Input placeholder='name' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Trekking name.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='bannerImage'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Banner Image</FormLabel>
-                <FormControl>
-                  <Input placeholder='Banner Image' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Banner Image.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='tripImage'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Trip Image</FormLabel>
-                <FormControl>
-                  <Input placeholder='Trip Image' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Trip Image.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='mapImage'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Map Image</FormLabel>
-                <FormControl>
-                  <Input placeholder='Map Image' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Map Image.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='video'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Video</FormLabel>
-                <FormControl>
-                  <Input placeholder='Video' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Video.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='imageGallery'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Image Gallery</FormLabel>
-                <FormControl>
-                  <Input placeholder='Image Gallery' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Image Gallery.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='price'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Price</FormLabel>
-                <FormControl>
-                  <Input placeholder='Price' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Price.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='isSpecialOffer'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Is Special Offer</FormLabel>
-                <FormControl>
-                  <Switch checked={field.value} onChange={field.onChange} />
-                </FormControl>
-                <FormDescription>Enter your Is Special Offer.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='isSpanish'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Is Spanish</FormLabel>
-                <FormControl>
-                  <Switch checked={field.value} onChange={field.onChange} />
-                </FormControl>
-                <FormDescription>Enter your Is Spanish.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='offerPrice'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Offer Price</FormLabel>
-                <FormControl>
-                  <Input placeholder='Offer Price' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Offer Price.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='pax2Price'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Price For 2</FormLabel>
-                <FormControl>
-                  <Input placeholder='1000' {...field} />
-                </FormControl>
-                <FormDescription>Enter price for 2.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='pax5Price'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Price For 5</FormLabel>
-                <FormControl>
-                  <Input placeholder='1000' {...field} />
-                </FormControl>
-                <FormDescription>Enter price for 5.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='pax5Price'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Price For 5</FormLabel>
-                <FormControl>
-                  <Input placeholder='1000' {...field} />
-                </FormControl>
-                <FormDescription>Enter price for 5.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='pax10Price'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Price For 10</FormLabel>
-                <FormControl>
-                  <Input placeholder='1000' {...field} />
-                </FormControl>
-                <FormDescription>Enter price for 10.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='pax15Price'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Price For 15</FormLabel>
-                <FormControl>
-                  <Input placeholder='1000' {...field} />
-                </FormControl>
-                <FormDescription>Enter price for 15.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='pax16Price'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Price For 16</FormLabel>
-                <FormControl>
-                  <Input placeholder='1000' {...field} />
-                </FormControl>
-                <FormDescription>Enter price for 16.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          /> */}
-          {/* summary section */}
           {formFieldList.map(item => {
             return (
               <FormField
@@ -452,7 +265,7 @@ export function AdminAddTrekking() {
                 name={item}
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>{item}</FormLabel>
+                    <FormLabel>{formatString(field.name)}</FormLabel>
                     <FormControl>
                       <Input placeholder={item} {...field} />
                     </FormControl>
@@ -463,6 +276,199 @@ export function AdminAddTrekking() {
             );
           })}
 
+          <div>
+            {itineraryDetailsFields.map((item, index) => {
+              return (
+                <div key={item.id}>
+                  <FormField
+                    control={form.control}
+                    name={`itinerary.details.${index}.head`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{formatString(field.name)}</FormLabel>
+                        <FormControl>
+                          <Input placeholder='head' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`itinerary.details.${index}.headDetails`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{formatString(field.name)}</FormLabel>
+                        <FormControl>
+                          <Input placeholder='headDetails' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`itinerary.details.${index}.elevation`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{formatString(field.name)}</FormLabel>
+                        <FormControl>
+                          <Input placeholder='elevation' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`itinerary.details.${index}.activity`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{formatString(field.name)}</FormLabel>
+                        <FormControl>
+                          <Input placeholder='activity' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`itinerary.details.${index}.activityDuration`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{formatString(field.name)}</FormLabel>
+                        <FormControl>
+                          <Input placeholder='activityDuration' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name={`itinerary.details.${index}.accomodation`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{formatString(field.name)}</FormLabel>
+                        <FormControl>
+                          <Input placeholder='accomodation' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    type='button'
+                    onClick={() => removeItineraryDetails(index)}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              );
+            })}
+            <Button
+              type='button'
+              onClick={() =>
+                appendItineraryDetails({
+                  head: '',
+                  headDetails: '',
+                  elevation: '',
+                  activity: '',
+                  activityDuration: '',
+                })
+              }
+            >
+              Add Itinerary Details
+            </Button>
+          </div>
+          <div>
+            {tripHighlightFields.map((item, index) => {
+              return (
+                <div className='flex flex-row items-center' key={item.id}>
+                  <FormField
+                    control={form.control}
+                    name={`tripHighlight.${index}.text`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{formatString(field.name)}</FormLabel>
+                        <FormControl>
+                          <Input placeholder='highlights' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button
+                    type='button'
+                    onClick={() => removeTripHighlight(index)}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              );
+            })}
+            <Button
+              type='button'
+              onClick={() => appendTripHighlight({ text: '' })}
+            >
+              Add Trip Highlight
+            </Button>
+          </div>
+          <div>
+            {inclusionFields.map((item, index) => {
+              return (
+                <div className='flex flex-row items-center' key={item.id}>
+                  <FormField
+                    control={form.control}
+                    name={`inclusion.${index}.text`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{formatString(field.name)}</FormLabel>
+                        <FormControl>
+                          <Input placeholder='inclusion' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type='button' onClick={() => removeInclusion(index)}>
+                    Delete
+                  </Button>
+                </div>
+              );
+            })}
+            <Button type='button' onClick={() => appendInclusion({ text: '' })}>
+              Add Trip Highlight
+            </Button>
+          </div>
+          <div>
+            {exclusionFields.map((item, index) => {
+              return (
+                <div className='flex flex-row items-center' key={item.id}>
+                  <FormField
+                    control={form.control}
+                    name={`exclusion.${index}.text`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>{formatString(field.name)}</FormLabel>
+                        <FormControl>
+                          <Input placeholder='exclsuion' {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type='button' onClick={() => removeExclusion(index)}>
+                    Delete
+                  </Button>
+                </div>
+              );
+            })}
+            <Button type='button' onClick={() => appendExclusion({ text: '' })}>
+              Add Trip Highlight
+            </Button>
+          </div>
           <Button type='submit'>Submit</Button>
         </form>
       </Form>
