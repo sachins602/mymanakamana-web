@@ -48,6 +48,14 @@ function App() {
                 path='/admin/category/view'
                 element={<AdminViewCategory />}
               />
+              <Route
+                path='/admin/trekking/add'
+                element={<AdminAddCategory />}
+              />
+              <Route
+                path='/admin/trekking/view'
+                element={<AdminViewCategory />}
+              />
             </Route>
             <Route path='/admin-login' element={<AdminSignIn />} />
           </Routes>

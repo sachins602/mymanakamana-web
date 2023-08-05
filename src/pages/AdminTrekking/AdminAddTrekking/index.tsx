@@ -10,7 +10,7 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
-import { useAddCategoryMutation } from '@/hooks/adminCategory.hook';
+import { useAddTrekkingMutation } from '@/hooks/adminTrekking.hook';
 import { useAddImageMutation } from '@/hooks/image.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -24,6 +24,88 @@ const ACCEPTED_IMAGE_TYPES = [
   'image/png',
   'image/webp',
 ];
+
+//  category: { type: String },
+//     name: { type: String },
+//     bannerImage: { type: String },
+//     tripImage: { type: String },
+//     mapImage: { type: String },
+//     video: { type: String },
+//     imageGallery: [],
+//     price: { type: String },
+//     isSpecialOffer: { type: Boolean, default: false },
+//     isSpanish: { type: Boolean, default: false },
+//     offerPrice: String,
+//     pax2Price: String,
+//     pax5price: String,
+//     pax10price: String,
+//     pax15price: String,
+//     pax16price: String,
+//     summary: {
+//         duration: String,
+//         destination: String,
+//         startPoint: String,
+//         endPoint: String,
+//         groupSize: String,
+//         maxaltitude: String,
+//         bestSeason: String,
+//         difficulty: String,
+//         meals: String,
+//         accomodation: String,
+//         activities: String,
+//     },
+//     tripHighlight: { type: [] },
+//     description: { type: String },
+//     itinerary: {
+//         description: { type: String },
+
+//         details: [
+//             {
+//                 head: { type: String , default:null },
+//                 headDetails: { type: String , default:null },
+//                 mode: { type: String , default:null },
+//                 routeItinerary: { type: String , default:null },
+//                 elevation: { type: String , default:null },
+//                 duration: { type: String , default:null },
+//                 overnight: { type: String , default:null },
+//                 included: { type: String , default:null },
+//                 activity: { type: String , default:null },
+//                 activityDuration: { type: String , default:null },
+//                 accomodation: { type: String , default:null },
+//             }
+//         ]
+//     },
+//     inclusion: { type: [] },
+//     optionalInclusion: { type: [] },
+//     exclusion: { type: [] },
+//     aboutTrip: [
+//         {
+//             head: { type: String },
+//             headDetails: { type: String },
+//         }
+//     ],
+//     faq: [
+//         {
+//             head: { type: String },
+//             headDetails: { type: String },
+//         }
+//     ],
+//     customerReview: [
+//         {
+//             userid: String,
+//             user: String,
+//             rating: String,
+//             comment: String,
+//             postedOn: { type: Date, default: Date.now() },
+//         }
+//     ],
+//     totalViews: { type: Number, default: 500 },
+//     rating: { type: Number, default: 4.5 },
+//     status: { type: Boolean, default: true },
+//     createdby: String,
+//     updatedby: String,
+//     createdon: { type: Date, default: Date.now() },
+//     updatedon: { type: Date, default: Date.now() }
 
 const formSchema = z.object({
   name: z.string().min(3).max(100),
@@ -39,8 +121,8 @@ const formSchema = z.object({
   status: z.boolean().optional(),
 });
 
-export function AdminAddCategory() {
-  const addCategory = useAddCategoryMutation();
+export function AdminAddTrekking() {
+  const addTrekking = useAddTrekkingMutation();
   const addPhoto = useAddImageMutation();
   const navigate = useNavigate();
 
@@ -63,7 +145,7 @@ export function AdminAddCategory() {
     formData.append('name', values.image.name);
     addPhoto.mutate(formData, {
       onSuccess: res => {
-        addCategory.mutate(
+        addTrekking.mutate(
           {
             _id: '',
             name: values.name,
@@ -76,7 +158,7 @@ export function AdminAddCategory() {
             onSuccess: res => {
               console.log(res);
               form.reset();
-              navigate('/admin/category/view');
+              navigate('/admin/trekking/view');
             },
             onError: () => {
               console.log('error');
@@ -91,7 +173,7 @@ export function AdminAddCategory() {
   }
   return (
     <div>
-      <h1>Add Category</h1>
+      <h1>Add Trekking</h1>
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
           <FormField
@@ -99,11 +181,11 @@ export function AdminAddCategory() {
             name='name'
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Category Name</FormLabel>
+                <FormLabel>Trekking Name</FormLabel>
                 <FormControl>
                   <Input placeholder='name' {...field} />
                 </FormControl>
-                <FormDescription>Enter your Category name.</FormDescription>
+                <FormDescription>Enter your Trekking name.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
