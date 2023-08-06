@@ -1,8 +1,8 @@
-import { PopularTours } from '../../components/PopularTours';
-import { MajorDestination } from '../../components/MajorDestination';
-import { BestSeller } from '../../components/BestSeller';
-import { BlogAndTestimonial } from '../../components/BlogAndTestimonial';
-import { Whyus } from '../../components/Whyus';
+import { PopularTours } from '../../../components/PopularTours';
+import { MajorDestination } from '../../../components/MajorDestination';
+import { BestSeller } from '../../../components/BestSeller';
+import { BlogAndTestimonial } from '../BlogAndTestimonial';
+import { Whyus } from '../../../components/Whyus';
 
 export function Dashboard() {
   return (

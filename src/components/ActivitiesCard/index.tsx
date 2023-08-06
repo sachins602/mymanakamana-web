@@ -49,7 +49,7 @@ export function ActivitiesCard({ props }: { props: ActivitesCardProps[] }) {
                 </div>
               </div>
               <div className='flex items-center justify-center'>
-                <Button className='bg-green-500  hover:bg-green-700'>
+                <Button className='bg-green-500 hover:bg-green-700'>
                   Book Now
                 </Button>
               </div>

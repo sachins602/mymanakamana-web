@@ -1,7 +1,8 @@
 import {
   ActivitesCardProps,
   ActivitiesCard,
-} from '../../components/ActivitiesCard';
+} from '@/components/ActivitiesCard';
+
 const popularList = [
   {
     title: 'Bungee Jump in Bhotekoshi',
