@@ -25,15 +25,32 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { useGetAllBlogQuery } from '@/hooks/adminBlog.hook';
-import { BlogData } from '@/@types/user';
+import {
+  useDeleteBlogMutation,
+  useGetAllBlogQuery,
+} from '@/hooks/adminBlog.hook';
+import { BlogData, EditBlogData } from '@/@types/user';
+import AdminBlogEdit from '../AdminBlogEdit';
 
 function AdminBlogView() {
-  const { data: blogData } = useGetAllBlogQuery();
-  console.log(blogData);
+  const { data: blogData, refetch } = useGetAllBlogQuery();
+  const deleteBlog = useDeleteBlogMutation();
 
   function handleDelete(item: BlogData): void {
-    console.log(item);
+    deleteBlog.mutate(
+      {
+        id: item._id,
+      },
+      {
+        onSuccess: () => {
+          console.log('Delete blog successfully!');
+          refetch();
+        },
+        onError: () => {
+          console.log('Delete blog failed!');
+        },
+      },
+    );
   }
 
   return (
@@ -49,7 +66,7 @@ function AdminBlogView() {
                     <AiOutlineEdit className='w-6 h-6' />
                   </PopoverTrigger>
                   <PopoverContent className='overflow-y-scroll w-96 max-h-[500px]'>
-                    {/* <AdminBlogEdit props={item as EditTrip} /> */}
+                    <AdminBlogEdit props={item as EditBlogData} />
                   </PopoverContent>
                 </Popover>
                 <AlertDialog>

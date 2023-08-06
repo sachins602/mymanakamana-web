@@ -9,7 +9,6 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { Switch } from '@/components/ui/switch';
 import { useAddBlogMutation } from '@/hooks/adminBlog.hook';
 import { useAddImageMutation } from '@/hooks/image.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -38,7 +37,6 @@ const formSchema = z.object({
     .optional(),
   description: z.string().optional(),
   category: z.string().optional(),
-  isGuidline: z.boolean().optional(),
   trip: z.string().optional(),
   author: z
     .object({
@@ -111,7 +109,6 @@ export function AdminBlogAdd() {
           image: blogImageNameRes,
           description: formValues.description,
           category: formValues.category,
-          isGuidline: formValues.isGuidline,
           trip: formValues.trip,
           _id: '',
           author: {
@@ -135,6 +132,7 @@ export function AdminBlogAdd() {
         },
       );
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [blogSuccess, authorSuccess]);
 
   return (
@@ -207,23 +205,6 @@ export function AdminBlogAdd() {
                   <Input placeholder='category' {...field} />
                 </FormControl>
                 <FormDescription>Enter your category.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='isGuidline'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Is Guidline</FormLabel>
-                <FormControl>
-                  <Switch
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <FormDescription>Enter your isGuidline.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}

@@ -194,7 +194,6 @@ export type BlogResponseType = {
 
 export type BlogData = {
   author?: Author;
-  isGuidline?: boolean;
   _id?: string;
   name?: string;
   image?: string;
@@ -218,9 +217,16 @@ export type Author = {
 export type AddBlogData = {
   author?: Author;
   _id?: string;
-  isGuidline?: boolean;
   name?: string;
   image?: string;
+  description?: string;
+  category?: string;
+  trip?: string;
+}
+
+export type EditBlogData = {
+  _id?: string;
+  name?: string;
   description?: string;
   category?: string;
   trip?: string;
