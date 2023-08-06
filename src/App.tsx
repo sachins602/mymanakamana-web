@@ -14,10 +14,12 @@ import { OurPackages } from './pages/OurPackages';
 import { AdminAddCategory } from './pages/AdminCategory/AdminAddCategory';
 import { AdminSideBar } from './components/AdminSideBar';
 import AdminViewCategory from './pages/AdminCategory/AdminViewCategory';
-import { AdminAddTrekking } from './pages/AdminTrekking/AdminAddTrekking';
-import AdminViewTrekking from './pages/AdminTrekking/AdminViewTrekking';
 import AdminBlogView from './pages/AdminBlog/AdminBlogView';
 import { AdminBlogAdd } from './pages/AdminBlog/AdminBlogAdd';
+import AdminProfile from './pages/AdminProfile';
+import { Trekking } from './pages/Trekking';
+import AdminViewTrekking from './pages/AdminTrekking/AdminViewTrekking';
+import { AdminAddTrekking } from './pages/AdminTrekking/AdminAddTrekking';
 
 function App() {
   const { pathname } = useLocation();
@@ -31,6 +33,7 @@ function App() {
           <Route path='/about-us' element={<AboutUs />} />
           <Route path='/blogs' element={<Blogs />} />
           <Route path='/packages' element={<OurPackages />} />
+          <Route path='/trekking' element={<Trekking />} />
 
           <Route path='/login' element={<UserSignIn />} />
 
@@ -62,6 +65,7 @@ function App() {
               />
               <Route path='/admin/blog/view' element={<AdminBlogView />} />
               <Route path='/admin/blog/add' element={<AdminBlogAdd />} />
+              <Route path='/admin/profile' element={<AdminProfile />} />
             </Route>
             <Route path='/admin-login' element={<AdminSignIn />} />
           </Routes>

@@ -1,7 +1,10 @@
+import TrekkingCard from '@/components/TrekkingCard';
+
 export function Trekking() {
   return (
     <div>
-      <h1>About Us</h1>
+      <h1>Trekking</h1>
+      <TrekkingCard />
     </div>
   );
 }
