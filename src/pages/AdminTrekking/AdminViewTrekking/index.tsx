@@ -7,7 +7,6 @@ import {
 import { useGetTripsQuery } from '@/hooks/adminTrip.hook';
 
 import { AiOutlineEdit } from 'react-icons/ai';
-import AdminEditTrekkingForm from '../AdminEditTrekking';
 import {
   Card,
   CardContent,
@@ -28,28 +27,30 @@ import {
   AlertDialogTrigger,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
-import { TripData } from '@/@types/user';
+import { EditTrip, TripData } from '@/@types/user';
+import { AdminEditTrekking } from '../AdminEditTrekking';
+import { useDeleteTrekkingQuery } from '@/hooks/adminTrekking.hook';
 // import { Data } from '@/@types/user';
 
 function AdminViewTrekking() {
-  const { data: trekkingData } = useGetTripsQuery();
+  const { data: trekkingData, refetch } = useGetTripsQuery();
 
-  // const deleteTrekking = useDeleteTrekkingQuery();
+  const deleteTrekking = useDeleteTrekkingQuery();
 
   function handleDelete(item: TripData): void {
     console.log(item);
-    // deleteTrekking.mutate(
-    //   { id: item._id as string },
-    //   {
-    //     onSuccess: res => {
-    //       refetch();
-    //       console.log(res);
-    //     },
-    //     onError: error => {
-    //       console.log(error);
-    //     },
-    //   },
-    // );
+    deleteTrekking.mutate(
+      { id: item._id as string },
+      {
+        onSuccess: res => {
+          refetch();
+          console.log(res);
+        },
+        onError: error => {
+          console.log(error);
+        },
+      },
+    );
   }
 
   return (
@@ -64,8 +65,8 @@ function AdminViewTrekking() {
                   <PopoverTrigger>
                     <AiOutlineEdit className='w-6 h-6' />
                   </PopoverTrigger>
-                  <PopoverContent>
-                    <AdminEditTrekkingForm props={item} />
+                  <PopoverContent className='overflow-y-scroll w-96 max-h-[500px]'>
+                    <AdminEditTrekking props={item as EditTrip} />
                   </PopoverContent>
                 </Popover>
                 <AlertDialog>

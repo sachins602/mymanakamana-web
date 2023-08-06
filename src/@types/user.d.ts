@@ -58,18 +58,58 @@ export type Trip = {
   itinerary?: {
     description?: string;
     details?: {
-      head?: string | null;
-      headDetails?: string | null;
-      elevation?: string | null;
-      activity?: string | null;
-      activityDuration?: string | null;
-      accomodation?: string | null;
+      head?: string;
+      headDetails?: string;
+      elevation?: string;
+      activity?: string;
+      activityDuration?: string;
+      accomodation?: string;
     }[];
   };
   inclusion?: string[];
   exclusion?: string[];
   status?: boolean;
   createdby?: string;
+}
+
+export type EditTrip = {
+  _id: string;
+  category?: string;
+  name?: string;
+  price?: string;
+  bannerImage?: string;
+  tripImage?: string;
+  mapImage?: string;
+  isSpecialOffer?: boolean;
+  offerPrice?: string;
+  summary?: {
+    duration?: string;
+    destination?: string;
+    startPoint?: string;
+    endPoint?: string;
+    maxaltitude?: string;
+    bestSeason?: string;
+    difficulty?: string;
+    meals?: string;
+    accomodation?: string;
+    activities?: string;
+  };
+  tripHighlight?: string[];
+  description?: string;
+  itinerary?: {
+    description?: string;
+    details?: {
+      head?: string;
+      headDetails?: string;
+      elevation?: string;
+      activity?: string;
+      activityDuration?: string;
+      accomodation?: string;
+    }[];
+  };
+  inclusion?: string[];
+  exclusion?: string[];
+  status?: boolean;
 }
 export type TripResponseType = {
   api_status?: string;

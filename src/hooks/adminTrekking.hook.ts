@@ -38,7 +38,7 @@ export const useGetAllTrekkingQuery = () => {
 
 export const useDeleteTrekkingQuery = () => {
   return useMutation(async ({ id }: { id: string }) => {
-    const response = await fetch(`http://localhost:4000/api/trekking/delete/${id}`, {
+    const response = await fetch(`http://localhost:4000/api/trip/delete/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     });
