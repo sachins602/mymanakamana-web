@@ -16,6 +16,8 @@ import { AdminSideBar } from './components/AdminSideBar';
 import AdminViewCategory from './pages/AdminCategory/AdminViewCategory';
 import { AdminAddTrekking } from './pages/AdminTrekking/AdminAddTrekking';
 import AdminViewTrekking from './pages/AdminTrekking/AdminViewTrekking';
+import AdminBlogView from './pages/AdminBlog/AdminBlogView';
+import AdminBlogAdd from './pages/AdminBlog/AdminBlogAdd';
 
 function App() {
   const { pathname } = useLocation();
@@ -58,6 +60,8 @@ function App() {
                 path='/admin/trekking/view'
                 element={<AdminViewTrekking />}
               />
+              <Route path='/admin/blog/view' element={<AdminBlogView />} />
+              <Route path='/admin/blog/add' element={<AdminBlogAdd />} />
             </Route>
             <Route path='/admin-login' element={<AdminSignIn />} />
           </Routes>

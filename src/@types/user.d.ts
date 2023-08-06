@@ -186,3 +186,30 @@ type Summary = {
   maxaltitude?: string;
   bestSeason?: string;
 }
+
+export type BlogResponseType = {
+  api_status?: string;
+  data?: BlogData[];
+}
+
+export type BlogData = {
+  author?: Author;
+  isGuidline?: boolean;
+  _id?: string;
+  name?: string;
+  image?: string;
+  description?: string;
+  category?: null | string;
+  trip?: null | string;
+  views?: number;
+  createdon?: Date;
+  updatedon?: Date;
+  __v?: number;
+}
+
+export type Author = {
+  id?: string;
+  name?: string;
+  image?: string;
+  profession?: string;
+}
