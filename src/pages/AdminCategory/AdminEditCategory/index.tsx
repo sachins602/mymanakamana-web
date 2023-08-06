@@ -15,6 +15,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { Data } from '@/@types/user';
 import { Switch } from '@/components/ui/switch';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const formSchema = z.object({
   name: z.string().min(3).max(100),
@@ -46,10 +53,20 @@ function AdminEditCategoryForm({ props }: { props: Data }) {
           render={({ field }) => (
             <FormItem>
               <FormLabel>Category Name</FormLabel>
-              <FormControl>
-                <Input placeholder='name' {...field} />
-              </FormControl>
-              <FormDescription>Enter your Category name.</FormDescription>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder='Choose Category' />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value='Trekking'>Trekking</SelectItem>
+                  <SelectItem value='Tour'>Tours</SelectItem>
+                  <SelectItem value='Activity'>Activity</SelectItem>
+                  <SelectItem value='Packages'>Packages</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription>You can choose your Category</FormDescription>
               <FormMessage />
             </FormItem>
           )}

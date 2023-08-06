@@ -9,6 +9,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useAddCategoryMutation } from '@/hooks/adminCategory.hook';
 import { useAddImageMutation } from '@/hooks/image.hook';
@@ -46,12 +53,7 @@ export function AdminAddCategory() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {
-      name: '',
-      image: '',
-      slogan: '',
-      status: true,
-    },
+    defaultValues: {},
   });
 
   // 2. Define a submit handler.
@@ -100,10 +102,24 @@ export function AdminAddCategory() {
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Category Name</FormLabel>
-                <FormControl>
-                  <Input placeholder='name' {...field} />
-                </FormControl>
-                <FormDescription>Enter your Category name.</FormDescription>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder='Choose Category' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value='Trekking'>Trekking</SelectItem>
+                    <SelectItem value='Tour'>Tours</SelectItem>
+                    <SelectItem value='Activity'>Activity</SelectItem>
+                    <SelectItem value='Packages'>Packages</SelectItem>
+                    <SelectItem value='Blogs'>Blogs</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormDescription>You can choose province</FormDescription>
                 <FormMessage />
               </FormItem>
             )}

@@ -15,6 +15,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { EditBlogData } from '@/@types/user';
 import { useAddBlogMutation } from '@/hooks/adminBlog.hook';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 const formSchema = z.object({
   name: z.string(),
@@ -62,14 +69,21 @@ function AdminBlogEdit({ props }: { props: EditBlogData }) {
       <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
         <FormField
           control={form.control}
-          name='name'
+          name='category'
           render={({ field }) => (
             <FormItem>
               <FormLabel>Category Name</FormLabel>
-              <FormControl>
-                <Input placeholder='name' {...field} />
-              </FormControl>
-              <FormDescription>Enter your Category name.</FormDescription>
+              <Select onValueChange={field.onChange} defaultValue={field.value}>
+                <FormControl>
+                  <SelectTrigger>
+                    <SelectValue placeholder='Choose Category' />
+                  </SelectTrigger>
+                </FormControl>
+                <SelectContent>
+                  <SelectItem value='Blog'>Blog</SelectItem>
+                </SelectContent>
+              </Select>
+              <FormDescription>You can choose your Category</FormDescription>
               <FormMessage />
             </FormItem>
           )}

@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
+  FormDescription,
   // FormDescription,
   FormField,
   FormItem,
@@ -10,6 +11,13 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePostTripQuery } from '@/hooks/adminTrip.hook';
@@ -84,7 +92,6 @@ const formSchema = z.object({
 });
 
 const formFieldList = [
-  'category',
   'name',
   'price',
   'offerPrice',
@@ -239,6 +246,33 @@ export function AdminEditTrekking({ props }: { props: EditTrip }) {
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className=''>
         <div className='space-y-6'>
+          <FormField
+            control={form.control}
+            name='category'
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category Name</FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder='Choose Category' />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value='Trekking'>Trekking</SelectItem>
+                    <SelectItem value='Tour'>Tours</SelectItem>
+                    <SelectItem value='Activity'>Activity</SelectItem>
+                    <SelectItem value='Packages'>Packages</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormDescription>You can choose your Category</FormDescription>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
           {formFieldList.map(item => {
             return (
               <FormField
