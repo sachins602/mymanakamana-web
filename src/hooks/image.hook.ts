@@ -3,7 +3,7 @@ import { ImageResponseType } from '@/@types/user';
 import { useMutation, useQueries, useQuery } from '@tanstack/react-query';
 
 export const useAddImageMutation = () => {
-  return useMutation(async (data: FormData) => {
+  return useMutation(['postImage'], async (data: FormData) => {
     const response = await fetch('http://localhost:4000/api/media/upload', {
       method: 'POST',
       body: data,
@@ -14,7 +14,7 @@ export const useAddImageMutation = () => {
     }
 
     return await response.json() as ImageResponseType;
-  }
+  },
   );
 }
 

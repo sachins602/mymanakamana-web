@@ -10,7 +10,12 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
+import { useAuth } from '@/contexts/AuthContext';
+import { usePostTripQuery } from '@/hooks/adminTrip.hook';
+import { useAddImageMutation } from '@/hooks/image.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
+import { useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
@@ -30,78 +35,6 @@ function formatString(name: string) {
     })
     .join(' ');
 }
-
-export type Trip = {
-  category: string;
-  name: string;
-  bannerImage: string;
-  tripImage: string;
-  mapImage: string;
-  video: string;
-  imageGallery: string[];
-  price: string;
-  isSpecialOffer: boolean;
-  isSpanish?: boolean;
-  offerPrice?: string;
-  pax2Price?: string;
-  pax5price?: string;
-  pax10price?: string;
-  pax15price?: string;
-  pax16price?: string;
-  summary: {
-    duration: string;
-    destination: string;
-    startPoint: string;
-    endPoint: string;
-    groupSize: string;
-    maxaltitude: string;
-    bestSeason: string;
-    difficulty: string;
-    meals: string;
-    accomodation: string;
-    activities: string;
-  };
-  tripHighlight: string[];
-  description: string;
-  itinerary: {
-    description: string;
-    details: {
-      head?: string | null;
-      headDetails?: string | null;
-      mode?: string | null;
-      routeItinerary?: string | null;
-      elevation?: string | null;
-      duration?: string | null;
-      overnight?: string | null;
-      included?: string | null;
-      activity?: string | null;
-      activityDuration?: string | null;
-      accomodation?: string | null;
-    }[];
-  };
-  inclusion: string[];
-  optionalInclusion: string[];
-  exclusion: string[];
-  aboutTrip: {
-    head: string;
-    headDetails: string;
-  }[];
-  faq: {
-    head: string;
-    headDetails: string;
-  }[];
-  customerReview: {
-    userid: string;
-    user: string;
-    rating: string;
-    comment: string;
-    postedOn: Date;
-  }[];
-  totalViews: number;
-  rating: number;
-  status: boolean;
-  createdby: string;
-};
 
 const formSchema = z.object({
   category: z.string(),
@@ -203,9 +136,18 @@ const formFieldList = [
 ] as const;
 
 export function AdminAddTrekking() {
-  // const addTrekking = useAddTrekkingMutation();
-  // const addPhoto = useAddImageMutation();
+  const addTrekking = usePostTripQuery();
+  const { user } = useAuth();
+  const addBannerImage = useAddImageMutation();
+  const addTripImage = useAddImageMutation();
+  const addMapImage = useAddImageMutation();
   // const navigate = useNavigate();
+  const queryClient = useQueryClient();
+  const [imageNames, setImageNames] = useState<{
+    bannerImage?: string;
+    tripImage?: string;
+    mapImage?: string;
+  }>();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -271,7 +213,107 @@ export function AdminAddTrekking() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    console.log(values);
+    const bannerFormData = new FormData();
+    const tripFormData = new FormData();
+    const mapFormData = new FormData();
+    bannerFormData.append('image', values.bannerImage);
+    tripFormData.append('image', values.tripImage);
+    mapFormData.append('image', values.mapImage);
+    Promise.allSettled([
+      addBannerImage.mutate(bannerFormData, {
+        onSuccess: data => {
+          queryClient.invalidateQueries({
+            queryKey: ['postImage'],
+          });
+          setImageNames(prev => ({
+            ...prev,
+            bannerImage: data.path,
+          }));
+        },
+        onError: error => {
+          console.log('error', error);
+        },
+      }),
+      addTripImage.mutate(tripFormData, {
+        onSuccess: data => {
+          queryClient.invalidateQueries({
+            queryKey: ['postImage'],
+          });
+          setImageNames(prev => ({
+            ...prev,
+            tripImage: data.path,
+          }));
+        },
+        onError: error => {
+          console.log('error', error);
+        },
+      }),
+      addMapImage.mutate(mapFormData, {
+        onSuccess: data => {
+          queryClient.invalidateQueries({
+            queryKey: ['postImage'],
+          });
+          setImageNames(prev => ({
+            ...prev,
+            mapImage: data.path,
+          }));
+        },
+        onError: error => {
+          console.log('error', error);
+        },
+      }),
+    ]).then(() => {
+      addTrekking.mutate(
+        {
+          _id: '',
+          category: values.category,
+          name: values.name,
+          price: values.price,
+          offerPrice: values.offerPrice,
+          bannerImage: imageNames?.bannerImage,
+          tripImage: imageNames?.tripImage,
+          mapImage: imageNames?.mapImage,
+          summary: {
+            accomodation: values.summary.accomodation,
+            activities: values.summary.activities,
+            bestSeason: values.summary.bestSeason,
+            difficulty: values.summary.difficulty,
+            duration: values.summary.duration,
+            endPoint: values.summary.endPoint,
+            meals: values.summary.meals,
+            maxaltitude: values.summary.maxaltitude,
+            startPoint: values.summary.startPoint,
+            destination: values.summary.destination,
+          },
+          description: values.description,
+          itinerary: {
+            description: values.itinerary.description,
+            details: values.itinerary.details.map(item => ({
+              head: item.head,
+              headDetails: item.headDetails,
+              accomodation: item.accomodation,
+              activity: item.activity,
+              activityDuration: item.activityDuration,
+              elevation: item.elevation,
+            })),
+          },
+          tripHighlight: values.tripHighlight?.map(item => item.text),
+          inclusion: values.inclusion?.map(item => item.text),
+          exclusion: values.exclusion?.map(item => item.text),
+          isSpecialOffer: values.isSpecialOffer,
+          status: values.status,
+          createdby: user?.id,
+        },
+        {
+          onSuccess: res => {
+            console.log('success', res);
+          },
+          onError: error => {
+            console.log('error', error);
+          },
+        },
+      );
+    });
   }
   return (
     <div className='w-full'>
