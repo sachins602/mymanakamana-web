@@ -213,3 +213,15 @@ export type Author = {
   image?: string;
   profession?: string;
 }
+
+
+export type AddBlogData = {
+  author?: Author;
+  _id?: string;
+  isGuidline?: boolean;
+  name?: string;
+  image?: string;
+  description?: string;
+  category?: string;
+  trip?: string;
+}

@@ -17,7 +17,7 @@ import AdminViewCategory from './pages/AdminCategory/AdminViewCategory';
 import { AdminAddTrekking } from './pages/AdminTrekking/AdminAddTrekking';
 import AdminViewTrekking from './pages/AdminTrekking/AdminViewTrekking';
 import AdminBlogView from './pages/AdminBlog/AdminBlogView';
-import AdminBlogAdd from './pages/AdminBlog/AdminBlogAdd';
+import { AdminBlogAdd } from './pages/AdminBlog/AdminBlogAdd';
 
 function App() {
   const { pathname } = useLocation();
