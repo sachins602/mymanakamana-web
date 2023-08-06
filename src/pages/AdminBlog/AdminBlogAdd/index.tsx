@@ -13,9 +13,9 @@ import { Switch } from '@/components/ui/switch';
 import { useAddBlogMutation } from '@/hooks/adminBlog.hook';
 import { useAddImageMutation } from '@/hooks/image.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
 
 const MAX_FILE_SIZE = 2000000;
@@ -57,13 +57,15 @@ const formSchema = z.object({
 });
 
 export function AdminBlogAdd() {
-  const addPhoto = useAddImageMutation();
+  const { mutate: addBlogPhoto, isSuccess: blogSuccess } =
+    useAddImageMutation();
+  const { mutate: addAuthorPhoto, isSuccess: authorSuccess } =
+    useAddImageMutation();
   const addBlog = useAddBlogMutation();
-  const queryClient = useQueryClient();
-  const [imageNames, setImageNames] = useState<{
-    blogImageName?: string;
-    authorImageName?: string;
-  }>();
+  const [blogImageNameRes, setBlogImageNameRes] = useState<string>();
+  const [authorImageNameRes, setAuthorImageNameRes] = useState<string>();
+  const [formValues, setFormValues] = useState<z.infer<typeof formSchema>>();
+  const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -76,73 +78,65 @@ export function AdminBlogAdd() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    const blogImageFormaData = new FormData();
-    const authorImageFormaData = new FormData();
-    blogImageFormaData.append('image', values.image);
-    blogImageFormaData.append('name', values.image.name);
-    authorImageFormaData.append('image', values.author?.image);
-    authorImageFormaData.append('name', values.author?.image.name);
-    Promise.all([
-      addPhoto.mutateAsync(blogImageFormaData, {
-        onSuccess: res => {
-          queryClient.invalidateQueries({
-            queryKey: ['postImage'],
-          });
-          setImageNames(prev => ({
-            ...prev,
-            authorImageName: res.path,
-          }));
-        },
-        onError: err => {
-          console.log(err, 'error');
-        },
-      }),
-      addPhoto.mutateAsync(authorImageFormaData, {
-        onSuccess: res => {
-          queryClient.invalidateQueries({
-            queryKey: ['postImage'],
-          });
-          setImageNames(prev => ({
-            ...prev,
-            authorImageName: res.path,
-          }));
-        },
-        onError: err => {
-          console.log(err, 'error');
-        },
-      }),
-    ]).then(res => {
-      if (res[0].status === 'fulfilled' || res[1].status === 'fulfilled') {
-        console.log(imageNames, 'imageNames');
-        addBlog.mutate(
-          {
-            name: values.name,
-            image: imageNames?.blogImageName,
-            description: values.description,
-            category: values.category,
-            isGuidline: values.isGuidline,
-            trip: values.trip,
-            _id: '',
-            author: {
-              id: '',
-              name: values.author?.name,
-              image: imageNames?.authorImageName,
-              profession: values.author?.profession,
-            },
-          },
-          {
-            onSuccess: res => {
-              console.log(res, 'success');
-              form.reset();
-            },
-            onError: err => {
-              console.log(err, 'error');
-            },
-          },
-        );
-      }
+    const blogImageFormData = new FormData();
+    const authorImageFormData = new FormData();
+    blogImageFormData.append('image', values.image);
+    blogImageFormData.append('name', values.image.name);
+    authorImageFormData.append('image', values.author?.image);
+    authorImageFormData.append('name', values.author?.image.name);
+    addBlogPhoto(blogImageFormData, {
+      onSuccess: res => {
+        setBlogImageNameRes(res.path);
+      },
     });
+    addAuthorPhoto(authorImageFormData, {
+      onSuccess: res => {
+        setAuthorImageNameRes(res.path);
+      },
+    });
+    setFormValues(values);
   }
+
+  useEffect(() => {
+    if (
+      blogSuccess &&
+      authorSuccess &&
+      blogImageNameRes &&
+      authorImageNameRes &&
+      formValues
+    ) {
+      addBlog.mutate(
+        {
+          name: formValues.name,
+          image: blogImageNameRes,
+          description: formValues.description,
+          category: formValues.category,
+          isGuidline: formValues.isGuidline,
+          trip: formValues.trip,
+          _id: '',
+          author: {
+            id: '',
+            name: formValues.author?.name,
+            image: authorImageNameRes,
+            profession: formValues.author?.profession,
+          },
+        },
+        {
+          onSuccess: () => {
+            form.reset();
+            setAuthorImageNameRes(undefined);
+            setBlogImageNameRes(undefined);
+
+            navigate('/admin/blog/view');
+          },
+          onError: err => {
+            console.log(err, 'error');
+          },
+        },
+      );
+    }
+  }, [blogSuccess, authorSuccess]);
+
   return (
     <div>
       <h1>Add Blogs</h1>
