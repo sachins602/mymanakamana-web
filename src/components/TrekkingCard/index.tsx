@@ -1,14 +1,7 @@
 import { TripData } from '@/@types/user';
 
 import { Button } from '../ui/button';
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardDescription,
-  CardContent,
-  CardFooter,
-} from '../ui/card';
+import { Card, CardHeader, CardContent, CardFooter } from '../ui/card';
 import { useNavigate } from 'react-router-dom';
 
 function TrekkingCard({ props }: { props: TripData }) {
@@ -16,7 +9,7 @@ function TrekkingCard({ props }: { props: TripData }) {
   return (
     <Card
       key={props._id}
-      className='w-80 h-96'
+      className='w-80 h-[410px]'
       onClick={() => {
         navigate('/trekDetail', {
           state: {
@@ -26,20 +19,26 @@ function TrekkingCard({ props }: { props: TripData }) {
       }}
     >
       <CardHeader>
-        <CardTitle>{props.name}</CardTitle>
-        <CardDescription className='h-16 overflow-hidden text-ellipsis'>
-          {props.description}
-        </CardDescription>
+        <img
+          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4CtaDk3U49ukzwQTk5h6n1mwtWT9HULw-piOF2eF4&s'
+          // src={'http://localhost:4000/api/media/file/' + props.tripImage}
+          alt={props.name}
+          className='object-cover w-full h-56'
+        />
       </CardHeader>
       <CardContent>
-        <img
-          src={'http://localhost:4000/api/media/file/' + props.tripImage}
-          alt={props.name}
-          className='object-cover w-full h-32'
-        />
+        <h1> {props.name}</h1>
+        <div className='flex flex-row justify-between'>
+          <p>{props.summary?.duration}</p>
+          <p>{props.summary?.maxaltitude}</p>
+        </div>
+        <div className='flex flex-row justify-between'>
+          <p>Strating From: {props.price}</p>
+          <p>{props.rating}</p>
+        </div>
       </CardContent>
-      <CardFooter className='flex justify-end'>
-        <Button>Book</Button>
+      <CardFooter className='flex'>
+        <Button>View Details</Button>
       </CardFooter>
     </Card>
   );
