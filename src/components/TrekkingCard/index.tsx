@@ -27,14 +27,14 @@ function TrekkingCard({ props }: { props: TripData }) {
         />
       </CardHeader>
       <CardContent>
-        <h1> {props.name}</h1>
+        <h5 className='line-clamp-1'> {props.name}</h5>
         <div className='flex flex-row justify-between'>
-          <p>{props.summary?.duration}</p>
-          <p>{props.summary?.maxaltitude}</p>
+          <h6>{props.summary?.duration}</h6>
+          <h6>{props.summary?.maxaltitude}</h6>
         </div>
         <div className='flex flex-row justify-between'>
-          <p>Strating From: {props.price}</p>
-          <p>{props.rating}</p>
+          <h6>Strating From: {props.price}</h6>
+          <h6>{props.rating}</h6>
         </div>
       </CardContent>
       <CardFooter className='flex'>
