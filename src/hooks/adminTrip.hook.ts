@@ -1,4 +1,4 @@
-import { Trip, TripResponseType } from "@/@types/user";
+import { SingleTripResponseType, Trip, TripResponseType } from "@/@types/user";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useGetTripsQuery = () => {
@@ -29,4 +29,28 @@ export const usePostTripQuery = () => {
     return await response.json() as TripResponseType;
   }
   );
+}
+
+export const useDeleteTrekkingQuery = () => {
+  return useMutation(async ({ id }: { id: string }) => {
+    const response = await fetch(`http://localhost:4000/api/trip/delete/${id}`, {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return await response.json();
+  })
+}
+
+export const useGetIndividualTripQuery = ({ id }: { id: string }) => {
+  return useQuery(['trip'], async () => {
+    const response = await fetch(`http://localhost:4000/api/trip/get-trip/${id}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    return await response.json() as SingleTripResponseType;
+  });
 }

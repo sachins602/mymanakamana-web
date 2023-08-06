@@ -4,7 +4,10 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 
-import { useGetTripsQuery } from '@/hooks/adminTrip.hook';
+import {
+  useDeleteTrekkingQuery,
+  useGetTripsQuery,
+} from '@/hooks/adminTrip.hook';
 
 import { AiOutlineEdit } from 'react-icons/ai';
 import {
@@ -29,8 +32,6 @@ import {
 import { Button } from '@/components/ui/button';
 import { EditTrip, TripData } from '@/@types/user';
 import { AdminEditTrekking } from '../AdminEditTrekking';
-import { useDeleteTrekkingQuery } from '@/hooks/adminTrekking.hook';
-// import { Data } from '@/@types/user';
 
 function AdminViewTrekking() {
   const { data: trekkingData, refetch } = useGetTripsQuery();

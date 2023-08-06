@@ -115,6 +115,10 @@ export type TripResponseType = {
   api_status?: string;
   data?: TripData[];
 }
+export type SingleTripResponseType = {
+  api_status?: string;
+  data?: TripData;
+}
 
 type TripData = {
   summary?: Summary;

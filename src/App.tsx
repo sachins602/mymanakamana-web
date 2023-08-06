@@ -20,6 +20,7 @@ import AdminViewCategory from './pages/admin/AdminCategory/AdminViewCategory';
 import AdminProfile from './pages/admin/AdminProfile';
 import { AdminAddTrekking } from './pages/admin/AdminTrekking/AdminAddTrekking';
 import AdminViewTrekking from './pages/admin/AdminTrekking/AdminViewTrekking';
+import TrekDetail from './pages/user/TrekDetail';
 
 function App() {
   const { pathname } = useLocation();
@@ -34,6 +35,7 @@ function App() {
           <Route path='/blogs' element={<Blogs />} />
           <Route path='/packages' element={<OurPackages />} />
           <Route path='/trekking' element={<Trekking />} />
+          <Route path='/trekDetail' element={<TrekDetail />} />
 
           <Route path='/login' element={<UserSignIn />} />
 
