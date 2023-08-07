@@ -1,5 +1,9 @@
 import { AiFillStar } from 'react-icons/ai';
 import { Button } from '../ui/button';
+import { TripData } from '@/@types/user';
+import { BiTimer } from 'react-icons/bi';
+import { FaMountain, FaStarHalfAlt } from 'react-icons/fa';
+import { Card, CardHeader, CardContent, CardFooter } from '../ui/card';
 export type ActivitesCardProps = {
   title: string;
   Duration: string;
@@ -8,55 +12,47 @@ export type ActivitesCardProps = {
   review_count: number;
   avg_star_count: number;
 };
-export function ActivitiesCard({ props }: { props: ActivitesCardProps[] }) {
+export function ActivitiesCard({ props }: { props: TripData }) {
   return (
-    <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-11'>
-      {props.map(destination => {
-        return (
-          <div
-            key={`activity-${destination.title}`}
-            className=' shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
-          >
-            <div className='relative'>
-              <img src='/bungee.png' />
-            </div>
-            <div className='px-4 pt-2 pb-4 text-sm bg-white'>
-              <h5 className='pb-5 text-base font-semibold'>
-                {' '}
-                {destination.title}{' '}
-              </h5>
-              <div className='flex flex-row'>
-                <div className='pb-5'>
-                  <h6 className='font-medium pb-1.5'>Starting From</h6>
-                  <h5>
-                    <span className='text-[#B3510A] font-semibold'>
-                      US ${destination.original_price_US}
-                    </span>{' '}
-                    <span className='line-through decoration-slate-400'>
-                      US ${destination.discounted_price_US}{' '}
-                    </span>
-                  </h5>
-                </div>
-                <div className='pl-4'>
-                  <div className='flex pb-2 text-lg text-yellow-500'>
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                    <AiFillStar />
-                  </div>
-                  <p>Based on {destination.review_count} Reviews </p>
-                </div>
-              </div>
-              <div className='flex items-center justify-center'>
-                <Button className='bg-green-500 hover:bg-green-700'>
-                  Book Now
-                </Button>
-              </div>
-            </div>
+    <Card
+      key={props._id}
+      className='w-80 h-[410px] hover:shadow-lg cursor-pointer'
+      onClick={() => {
+        console.log('clicked');
+      }}
+    >
+      <CardHeader>
+        <img
+          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4CtaDk3U49ukzwQTk5h6n1mwtWT9HULw-piOF2eF4&s'
+          // src={'http://localhost:4000/api/media/file/' + props.tripImage}
+          alt={props.name}
+          className='object-cover w-full h-56'
+        />
+      </CardHeader>
+      <CardContent className='space-y-4'>
+        <h5 className='line-clamp-1'> {props.name}</h5>
+        <div className='flex flex-row justify-between'>
+          <div className='flex flex-row'>
+            <BiTimer />
+            <h6>{props.summary?.duration}</h6>
           </div>
-        );
-      })}
-    </div>
+          <div className='flex flex-row'>
+            <FaMountain />
+            <h6>{props.summary?.maxaltitude}</h6>
+          </div>
+        </div>
+        <div className='flex flex-row justify-between'>
+          <h6>Strating From: {props.price}</h6>
+          <div className='flex flex-row'>
+            <AiFillStar />
+            <FaStarHalfAlt />
+            <h6>{props.rating}</h6>
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className='flex mt-2'>
+        <Button>View Details</Button>
+      </CardFooter>
+    </Card>
   );
 }

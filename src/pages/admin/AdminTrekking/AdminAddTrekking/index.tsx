@@ -23,7 +23,7 @@ import { usePostTripQuery } from '@/hooks/adminTrip.hook';
 import { useAddImageMutation } from '@/hooks/image.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useQueryClient } from '@tanstack/react-query';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
 // import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
@@ -145,9 +145,12 @@ const formFieldList = [
 export function AdminAddTrekking() {
   const addTrekking = usePostTripQuery();
   const { user } = useAuth();
-  const addBannerImage = useAddImageMutation();
-  const addTripImage = useAddImageMutation();
-  const addMapImage = useAddImageMutation();
+  const { mutate: addBannerImage, isSuccess: bannerImageSuccess } =
+    useAddImageMutation();
+  const { mutate: addTripImage, isSuccess: tripImageSuccess } =
+    useAddImageMutation();
+  const { mutate: addMapImage, isSuccess: mapImageSuccess } =
+    useAddImageMutation();
   // const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [imageNames, setImageNames] = useState<{
@@ -155,6 +158,7 @@ export function AdminAddTrekking() {
     tripImage?: string;
     mapImage?: string;
   }>();
+  const [formData, setFormData] = useState<z.infer<typeof formSchema>>();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -226,76 +230,85 @@ export function AdminAddTrekking() {
     bannerFormData.append('image', values.bannerImage);
     tripFormData.append('image', values.tripImage);
     mapFormData.append('image', values.mapImage);
-    Promise.allSettled([
-      addBannerImage.mutate(bannerFormData, {
-        onSuccess: data => {
-          queryClient.invalidateQueries({
-            queryKey: ['postImage'],
-          });
-          setImageNames(prev => ({
-            ...prev,
-            bannerImage: data.path,
-          }));
-        },
-        onError: error => {
-          console.log('error', error);
-        },
-      }),
-      addTripImage.mutate(tripFormData, {
-        onSuccess: data => {
-          queryClient.invalidateQueries({
-            queryKey: ['postImage'],
-          });
-          setImageNames(prev => ({
-            ...prev,
-            tripImage: data.path,
-          }));
-        },
-        onError: error => {
-          console.log('error', error);
-        },
-      }),
-      addMapImage.mutate(mapFormData, {
-        onSuccess: data => {
-          queryClient.invalidateQueries({
-            queryKey: ['postImage'],
-          });
-          setImageNames(prev => ({
-            ...prev,
-            mapImage: data.path,
-          }));
-        },
-        onError: error => {
-          console.log('error', error);
-        },
-      }),
-    ]).then(() => {
+
+    addBannerImage(bannerFormData, {
+      onSuccess: data => {
+        queryClient.invalidateQueries({
+          queryKey: ['postImage'],
+        });
+        setImageNames(prev => ({
+          ...prev,
+          bannerImage: data.path,
+        }));
+      },
+      onError: error => {
+        console.log('error', error);
+      },
+    });
+    addTripImage(tripFormData, {
+      onSuccess: data => {
+        queryClient.invalidateQueries({
+          queryKey: ['postImage'],
+        });
+        setImageNames(prev => ({
+          ...prev,
+          tripImage: data.path,
+        }));
+      },
+      onError: error => {
+        console.log('error', error);
+      },
+    });
+    addMapImage(mapFormData, {
+      onSuccess: data => {
+        queryClient.invalidateQueries({
+          queryKey: ['postImage'],
+        });
+        setImageNames(prev => ({
+          ...prev,
+          mapImage: data.path,
+        }));
+      },
+      onError: error => {
+        console.log('error', error);
+      },
+    });
+    setFormData(values);
+  }
+
+  useEffect(() => {
+    if (
+      tripImageSuccess === true &&
+      mapImageSuccess === true &&
+      bannerImageSuccess === true &&
+      formData
+    ) {
       addTrekking.mutate(
         {
           _id: '',
-          category: values.category,
-          name: values.name,
-          price: values.price,
-          offerPrice: values.offerPrice,
+          category: formData.category,
+          name: formData.name,
+          price: formData.price,
+          offerPrice: formData.offerPrice,
           bannerImage: imageNames?.bannerImage,
           tripImage: imageNames?.tripImage,
           mapImage: imageNames?.mapImage,
           summary: {
-            accomodation: values.summary.accomodation,
-            activities: values.summary.activities,
-            bestSeason: values.summary.bestSeason,
-            difficulty: values.summary.difficulty,
-            duration: values.summary.duration,
-            endPoint: values.summary.endPoint,
-            meals: values.summary.meals,
-            maxaltitude: values.summary.maxaltitude,
-            startPoint: values.summary.startPoint,
-            destination: values.summary.destination,
+            accomodation: formData.summary.accomodation,
+            activities: formData.summary.activities,
+            bestSeason: formData.summary.bestSeason,
+            difficulty: formData.summary.difficulty,
+            duration: formData.summary.duration,
+            endPoint: formData.summary.endPoint,
+            meals: formData.summary.meals,
+            maxaltitude: formData.summary.maxaltitude,
+            startPoint: formData.summary.startPoint,
+            destination: formData.summary.destination,
           },
-          description: values.description,
+          description: formData.description,
           itinerary: {
-            description: values.itinerary.description,
-            details: values.itinerary.details.map(item => ({
+            description: formData.itinerary.description,
+            details: formData.itinerary.details.map(item => ({
               head: item.head,
               headDetails: item.headDetails,
               accomodation: item.accomodation,
@@ -304,11 +317,11 @@ export function AdminAddTrekking() {
               elevation: item.elevation,
             })),
           },
-          tripHighlight: values.tripHighlight?.map(item => item.text),
-          inclusion: values.inclusion?.map(item => item.text),
-          exclusion: values.exclusion?.map(item => item.text),
-          isSpecialOffer: values.isSpecialOffer,
-          status: values.status,
+          tripHighlight: formData.tripHighlight?.map(item => item.text),
+          inclusion: formData.inclusion?.map(item => item.text),
+          exclusion: formData.exclusion?.map(item => item.text),
+          isSpecialOffer: formData.isSpecialOffer,
+          status: formData.status,
           createdby: user?.id,
         },
         {
@@ -320,8 +333,9 @@ export function AdminAddTrekking() {
           },
         },
       );
-    });
-  }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tripImageSuccess, mapImageSuccess, bannerImageSuccess, formData]);
   return (
     <div className='w-full'>
       <h1>Add Packages inside categories</h1>
