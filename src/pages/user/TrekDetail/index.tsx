@@ -20,6 +20,7 @@ function TrekDetail() {
         alt={data?.data?.name}
       />
       <h1>{data?.data?.name}</h1>
+      {/* details crd */}
       <div className='flex flex-row h-80'>
         <div className='flex flex-col w-40'>
           <AiFillCalendar /> <h4>Duration</h4>
@@ -41,7 +42,10 @@ function TrekDetail() {
         </div>
         <Separator orientation='vertical' />
       </div>
+
       <Button>Book Now</Button>
+
+      {/* tabs with different info */}
       <Tabs defaultValue='overview' className='w-full'>
         <TabsList>
           <TabsTrigger value='overview'>Overview</TabsTrigger>

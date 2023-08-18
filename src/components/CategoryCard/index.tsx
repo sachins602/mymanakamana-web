@@ -11,13 +11,6 @@ function CategoryCard({ props }: { props: TripData }) {
     <Card
       key={props._id}
       className='w-80 h-[410px] hover:shadow-lg cursor-pointer'
-      onClick={() => {
-        navigate('/trekDetail', {
-          state: {
-            id: props._id,
-          },
-        });
-      }}
     >
       <CardHeader>
         <img
@@ -51,7 +44,18 @@ function CategoryCard({ props }: { props: TripData }) {
         </div>
       </CardContent>
       <CardFooter className='flex mt-2 justify-center'>
-        <Button className='bg-green-700'>Book Now</Button>
+        <Button
+          onClick={() => {
+            navigate('/trekDetail', {
+              state: {
+                id: props._id,
+              },
+            });
+          }}
+          className='bg-green-700'
+        >
+          View Details
+        </Button>
       </CardFooter>
     </Card>
   );
