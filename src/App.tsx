@@ -21,6 +21,7 @@ import AdminViewTrekking from './pages/admin/AdminTrekking/AdminViewTrekking';
 import TrekDetail from './pages/user/TrekDetail';
 import { LongTours } from './pages/user/LongTours';
 import { ShortTours } from './pages/user/ShortTours';
+import Book from './pages/user/Book';
 
 function App() {
   const { pathname } = useLocation();
@@ -38,7 +39,7 @@ function App() {
           <Route path='/blogs' element={<Blogs />} />
           <Route path='/packages' element={<OurPackages />} />
           <Route path='/trekDetail' element={<TrekDetail />} />
-
+          <Route path='/book' element={<Book />} />
           <Route path='/login' element={<UserSignIn />} />
 
           <Route path='/error' element={<h1>error</h1>} />

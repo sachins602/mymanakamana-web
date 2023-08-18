@@ -14,7 +14,7 @@ function PackageCard({ props }: { props: TripData }) {
       key={props._id}
       className='w-80 h-[410px] hover:shadow-lg cursor-pointer'
       onClick={() => {
-        navigate('/trekDetail', {
+        navigate('/book', {
           state: {
             id: props._id,
           },
@@ -51,7 +51,7 @@ function PackageCard({ props }: { props: TripData }) {
         </div>
       </CardContent>
       <CardFooter className='flex mt-2'>
-        <Button>View Details</Button>
+        <Button>Book Now</Button>
       </CardFooter>
     </Card>
   );
