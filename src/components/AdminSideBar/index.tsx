@@ -7,7 +7,6 @@ import {
   AccordionTrigger,
 } from '../ui/accordion';
 import { MdOutlinePageview } from 'react-icons/md';
-import { BiCategoryAlt } from 'react-icons/bi';
 import { BsCalendar4Event } from 'react-icons/bs';
 
 export function AdminSideBar() {
@@ -38,34 +37,6 @@ export function AdminSideBar() {
           </a>
           <AccordionItem value='item-1'>
             <AccordionTrigger>
-              <BiCategoryAlt className='w-6 h-6 mr-4' />
-              Categories
-            </AccordionTrigger>
-            <AccordionContent>
-              <ul id='dropdown-pages' className='py-2 space-y-2 '>
-                <li>
-                  <a
-                    href='/admin/category/view'
-                    className='flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100'
-                  >
-                    <MdOutlinePageview className='w-6 h-6 mr-4' />
-                    View
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href='/admin/category/add'
-                    className='flex items-center w-full p-2 text-base font-normal text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100'
-                  >
-                    <AiOutlineFolderAdd className='w-6 h-6 mr-4' />
-                    Add
-                  </a>
-                </li>
-              </ul>
-            </AccordionContent>
-          </AccordionItem>
-          <AccordionItem value='item-2'>
-            <AccordionTrigger>
               <BsCalendar4Event className='w-6 h-6 mr-4' />
               Packages
             </AccordionTrigger>
@@ -92,7 +63,7 @@ export function AdminSideBar() {
               </ul>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value='item-3'>
+          <AccordionItem value='item-2'>
             <AccordionTrigger>
               <svg
                 aria-hidden='true'
@@ -132,7 +103,7 @@ export function AdminSideBar() {
               </ul>
             </AccordionContent>
           </AccordionItem>
-          <AccordionItem value='item-4'>
+          <AccordionItem value='item-3'>
             <AccordionTrigger>
               <svg
                 aria-hidden='true'

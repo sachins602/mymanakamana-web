@@ -362,9 +362,9 @@ export function AdminAddTrekking() {
                     </FormControl>
                     <SelectContent>
                       <SelectItem value='Trekking'>Trekking</SelectItem>
-                      <SelectItem value='Tour'>Tours</SelectItem>
+                      <SelectItem value='Long Tours'>Long Tours</SelectItem>
+                      <SelectItem value='Short Tours'>Short Tours</SelectItem>
                       <SelectItem value='Activity'>Activity</SelectItem>
-                      <SelectItem value='Packages'>Packages</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormDescription>

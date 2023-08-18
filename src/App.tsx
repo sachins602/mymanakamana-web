@@ -15,8 +15,6 @@ import { Trekking } from './pages/user/Trekking';
 import { AdminSideBar } from './components/AdminSideBar';
 import { AdminBlogAdd } from './pages/admin/AdminBlog/AdminBlogAdd';
 import AdminBlogView from './pages/admin/AdminBlog/AdminBlogView';
-import { AdminAddCategory } from './pages/admin/AdminCategory/AdminAddCategory';
-import AdminViewCategory from './pages/admin/AdminCategory/AdminViewCategory';
 import AdminProfile from './pages/admin/AdminProfile';
 import { AdminAddTrekking } from './pages/admin/AdminTrekking/AdminAddTrekking';
 import AdminViewTrekking from './pages/admin/AdminTrekking/AdminViewTrekking';
@@ -49,14 +47,7 @@ function App() {
           <Routes>
             <Route path='/admin' element={<AdminRoute />}>
               <Route path='/admin' element={<AdminDashboard />} />
-              <Route
-                path='/admin/category/add'
-                element={<AdminAddCategory />}
-              />
-              <Route
-                path='/admin/category/view'
-                element={<AdminViewCategory />}
-              />
+
               <Route
                 path='/admin/trekking/add'
                 element={<AdminAddTrekking />}
