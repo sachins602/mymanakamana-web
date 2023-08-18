@@ -1,5 +1,5 @@
 import { PopularTours } from '../../../components/PopularTours';
-import { MajorDestination } from '../../../components/MajorDestination';
+// import { MajorDestination } from '../../../components/MajorDestination';
 import { BestSeller } from '../../../components/BestSeller';
 import { BlogAndTestimonial } from '../BlogAndTestimonial';
 import { Whyus } from '../../../components/Whyus';
@@ -45,12 +45,12 @@ export function Dashboard() {
       {/* popular pacakages */}
       <PopularTours />
       {/* major destination */}
-      <MajorDestination />
+      {/* <MajorDestination /> */}
       {/* best seller */}\
       <BestSeller />
+      <Whyus />
       {/* blog and testimonial */}
       <BlogAndTestimonial />
-      <Whyus />
     </div>
   );
 }

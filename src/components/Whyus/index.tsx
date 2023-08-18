@@ -9,7 +9,7 @@ export function Whyus() {
       <h1 className='text-center text-3xl py-16'>
         Why <span className='font-semibold'>Choose Us</span>
       </h1>
-      <div className='flex flex-col gap-8'>
+      <div className='flex flex-row p-10 mx-20 gap-8'>
         <div className='grid md:grid-cols-2 gap-x-20 gap-y-16'>
           <div>
             <h3 className='flex items-start'>
@@ -62,10 +62,7 @@ export function Whyus() {
             </p>
           </div>
         </div>
-
-        <div className='mx-auto'>
-          <img src='/packagesbg.png' />
-        </div>
+        <img className='w-52 h-52 rounded-full' src='/packagesbg.png' />
       </div>
     </div>
   );

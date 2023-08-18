@@ -53,16 +53,16 @@ export function BestSeller() {
     },
   ];
   return (
-    <div className='bg-[#F0FBFA] py-16'>
+    <div className='bg-[#F0FBFA] w-full py-16'>
       <h2 className='pb-12 text-2xl font-semibold text-center'>
         Our Best Selling Packages
       </h2>
-      <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-11'>
+      <div className='place-items-center mt-16 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3'>
         {popularList.map((destination, i) => {
           return (
             <div
               key={`best-seller-${destination.title}${i}`}
-              className=' shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
+              className='w-96 shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
             >
               <div className='relative'>
                 <img src='/packagesbg.png' />
