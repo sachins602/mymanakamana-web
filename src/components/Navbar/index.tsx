@@ -40,7 +40,7 @@ export function Navbar() {
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
-            <Button onClick={() => navigate('/booking')}>Bookings</Button>
+            <a href='/booking'>Bookings</a>
           </DropdownMenuItem>
           {user ? (
             <DropdownMenuItem>

@@ -1,5 +1,5 @@
-import { TripResponseType } from "@/@types/user";
-import { useMutation } from "@tanstack/react-query";
+import { TripResponseType, UserBookingResponse } from "@/@types/user";
+import { useMutation, useQuery } from "@tanstack/react-query";
 
 
 export const useAddBookingMutation = () => {
@@ -28,4 +28,17 @@ export const useAddBookingMutation = () => {
     return await response.json() as TripResponseType;
   }
   );
+}
+
+export const useUserBookingsQuery = ({ id }: { id: string }) => {
+  return useQuery(['userBooking'], async () => {
+    const response = await fetch(`http://localhost:4000/api/booking/getByUser/${id}`);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    return await response.json() as UserBookingResponse;
+  }, {
+    enabled: !!id,
+  });
 }

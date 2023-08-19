@@ -235,3 +235,26 @@ export type EditBlogData = {
   category?: string;
   trip?: string;
 }
+
+export interface UserBookingResponse {
+  api_status?: string;
+  data?: UserBooking[];
+}
+
+export interface UserBooking {
+  _id?: string;
+  packageId?: string;
+  packageName?: string;
+  userId?: string;
+  name?: string;
+  email?: string;
+  totalTraveller?: string;
+  date?: Date;
+  address?: string;
+  price?: string;
+  status?: number;
+  visited?: boolean;
+  createdon?: Date;
+  updatedon?: Date;
+  __v?: number;
+}
