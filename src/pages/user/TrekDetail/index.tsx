@@ -5,10 +5,13 @@ import { Separator } from '@/components/ui/separator';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useGetIndividualTripQuery } from '@/hooks/adminTrip.hook';
 import { AiFillCalendar } from 'react-icons/ai';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+
 function TrekDetail() {
   const { state } = useLocation();
-  const { data } = useGetIndividualTripQuery({ id: state.id });
+  const navigate = useNavigate();
+  const { data } = useGetIndividualTripQuery({ id: state.tripId });
+
   return (
     <div className='w-full space-y-8 text-center'>
       {/* <img
@@ -23,14 +26,14 @@ function TrekDetail() {
       <h1>{data?.data?.name}</h1>
       {/* details crd */}
       <div className='flex flex-row w-fit mx-auto h-72 bg-[#E0F2F1] gap-4'>
-        <div className='flex flex-col w-40 items-center'>
+        <div className='flex flex-col items-center w-40'>
           <div className='flex flex-row items-center'>
             <AiFillCalendar /> <h4>Duration</h4>
           </div>
           <h6>{data?.data?.summary?.duration}</h6>
         </div>
         <Separator orientation='vertical' />
-        <div className='flex flex-col w-60 items-center'>
+        <div className='flex flex-col items-center w-60'>
           <div className='flex flex-row items-center'>
             <AiFillCalendar /> <h4>Activities</h4>
           </div>
@@ -41,14 +44,14 @@ function TrekDetail() {
           </ScrollArea>
         </div>
         <Separator orientation='vertical' />
-        <div className='flex flex-col w-40 items-center'>
+        <div className='flex flex-col items-center w-40'>
           <div className='flex flex-row items-center'>
             <AiFillCalendar /> <h4>Accomodation</h4>
           </div>
           <h6>{data?.data?.summary?.accomodation}</h6>
         </div>
         <Separator orientation='vertical' />
-        <div className='flex flex-col w-40 items-center'>
+        <div className='flex flex-col items-center w-40'>
           <div className='flex flex-row items-center'>
             <AiFillCalendar /> <h4>Meals</h4>
           </div>
@@ -56,7 +59,20 @@ function TrekDetail() {
         </div>
       </div>
 
-      <Button>Book Now</Button>
+      <Button
+        type='button'
+        onClick={() =>
+          navigate('/book', {
+            state: {
+              bookId: data?.data?._id,
+              packageName: data?.data?.name,
+              days: data?.data?.summary?.duration,
+            },
+          })
+        }
+      >
+        Book Now
+      </Button>
 
       {/* tabs with different info */}
       <Tabs defaultValue='overview' className='w-[80%] mx-auto'>

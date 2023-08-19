@@ -21,7 +21,7 @@ function CategoryCard({ props }: { props: TripData }) {
         />
       </CardHeader>
       <CardContent className='space-y-8'>
-        <h5 className='line-clamp-1 text-center'> {props.name}</h5>
+        <h5 className='text-center line-clamp-1'> {props.name}</h5>
         <div className='flex flex-row justify-between'>
           <div className='flex flex-col'>
             <h6>Strating From: </h6>{' '}
@@ -43,12 +43,12 @@ function CategoryCard({ props }: { props: TripData }) {
           </div>
         </div>
       </CardContent>
-      <CardFooter className='flex mt-2 justify-center'>
+      <CardFooter className='flex justify-center mt-2'>
         <Button
           onClick={() => {
             navigate('/trekDetail', {
               state: {
-                id: props._id,
+                tripId: props._id,
               },
             });
           }}
