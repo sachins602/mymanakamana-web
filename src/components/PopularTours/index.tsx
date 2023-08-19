@@ -55,7 +55,7 @@ export function PopularTours() {
                     </p>
                   </div>
                 </div>
-                <Button className='px-9 bg-[#B3510A]'>View Details</Button>
+                <Button className='px-9 bg-[#B3510A]'>Book</Button>
               </div>
             </div>
           );

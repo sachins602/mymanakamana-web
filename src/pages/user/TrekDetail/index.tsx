@@ -61,6 +61,7 @@ function TrekDetail() {
 
       <Button
         type='button'
+        className='bg-[#B3510A]'
         onClick={() =>
           navigate('/book', {
             state: {
