@@ -15,7 +15,7 @@ export function BestSeller() {
           return (
             <div
               key={`best-seller-${destination._id}${i}`}
-              className='w-96 shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
+              className='w-80 shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
             >
               <div className='relative'>
                 <img src='/packagesbg.png' />

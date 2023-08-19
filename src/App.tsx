@@ -23,6 +23,7 @@ import { LongTours } from './pages/user/LongTours';
 import { ShortTours } from './pages/user/ShortTours';
 import Book from './pages/user/Book';
 import { Booking } from './pages/user/Booking';
+import { TailwindIndicator } from './components/TailwindIndicator';
 
 function App() {
   const { pathname } = useLocation();
@@ -71,6 +72,7 @@ function App() {
           </Routes>
         </div>
       </AuthProvider>
+      <TailwindIndicator />
     </div>
   );
 }
