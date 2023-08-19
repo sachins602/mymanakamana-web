@@ -39,7 +39,9 @@ export function Navbar() {
         <DropdownMenuContent>
           <DropdownMenuLabel>My Account</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuItem>Profile</DropdownMenuItem>
+          <DropdownMenuItem>
+            <Button onClick={() => navigate('/booking')}>Bookings</Button>
+          </DropdownMenuItem>
           {user ? (
             <DropdownMenuItem>
               <Button onClick={() => signOut()}>Logout</Button>

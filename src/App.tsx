@@ -22,6 +22,7 @@ import TrekDetail from './pages/user/TrekDetail';
 import { LongTours } from './pages/user/LongTours';
 import { ShortTours } from './pages/user/ShortTours';
 import Book from './pages/user/Book';
+import { Booking } from './pages/user/Booking';
 
 function App() {
   const { pathname } = useLocation();
@@ -40,6 +41,7 @@ function App() {
           <Route path='/packages' element={<OurPackages />} />
           <Route path='/trekDetail' element={<TrekDetail />} />
           <Route path='/book' element={<Book />} />
+          <Route path='/booking' element={<Booking />} />
           <Route path='/login' element={<UserSignIn />} />
 
           <Route path='/error' element={<h1>error</h1>} />
