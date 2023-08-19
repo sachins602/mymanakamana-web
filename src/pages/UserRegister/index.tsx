@@ -7,8 +7,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
-import { useAuth } from '@/contexts/AuthContext';
-import { useUserLoginMutation } from '@/hooks/user.hook';
+import { useUserRegisterMutation } from '@/hooks/user.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +15,7 @@ import * as z from 'zod';
 
 const formSchema = z
   .object({
-    name: z.string().min(3).max(100),
+    username: z.string().min(3).max(100),
     email: z.string().email(),
     password: z.string().min(3).max(100),
     confirmPassword: z.string().min(3).max(100),
@@ -27,9 +26,8 @@ const formSchema = z
   });
 
 export function UserRegister() {
-  const register = useUserLoginMutation();
   const navigate = useNavigate();
-  const { signIn } = useAuth();
+  const register = useUserRegisterMutation();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -44,16 +42,22 @@ export function UserRegister() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    register.mutate(values, {
-      onSuccess: res => {
-        signIn(res);
-
-        navigate('/');
+    register.mutate(
+      {
+        username: values.username,
+        email: values.email,
+        password: values.password,
       },
-      onError: () => {
-        console.log('error');
+      {
+        onSuccess: res => {
+          console.log(res);
+          navigate('/login');
+        },
+        onError: err => {
+          console.log('error', err);
+        },
       },
-    });
+    );
   }
   return (
     <div className='w-full h-screen bg-[url("/packagesbg.png")] bg-cover bg-center bg-no-repeat'>
@@ -63,7 +67,7 @@ export function UserRegister() {
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
             <FormField
               control={form.control}
-              name='name'
+              name='username'
               render={({ field }) => (
                 <FormItem>
                   <FormControl>

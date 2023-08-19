@@ -258,3 +258,8 @@ export interface UserBooking {
   updatedon?: Date;
   __v?: number;
 }
+
+export type UserRegisterSuccessResponseType = {
+  message?: string;
+  success: boolean;
+}

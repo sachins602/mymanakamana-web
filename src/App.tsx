@@ -38,6 +38,7 @@ function App() {
     } else if (!user && pathname !== '/login' && pathname !== '/register') {
       navigate('/login');
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
   return (
