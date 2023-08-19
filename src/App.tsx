@@ -1,5 +1,5 @@
-import { Route, Routes, useLocation } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { AdminRoute } from './components/PrivateRoutes/PrivateRotues';
 import { Dashboard } from './pages/user/Dashboard';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
@@ -24,13 +24,27 @@ import { ShortTours } from './pages/user/ShortTours';
 import Book from './pages/user/Book';
 import { Booking } from './pages/user/Booking';
 import { TailwindIndicator } from './components/TailwindIndicator';
+import { useEffect } from 'react';
 
 function App() {
   const { pathname } = useLocation();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user && pathname.slice(0, 6) === '/admin') {
+      navigate('/admin-login');
+    } else if (!user && pathname !== '/login') {
+      navigate('/login');
+    }
+  }, [user]);
+
   return (
     <div className='flex flex-col items-center min-h-screen'>
       <AuthProvider>
-        {pathname.slice(0, 6) === '/admin' ? null : <Navbar />}
+        {pathname.slice(0, 6) === '/admin' || pathname === '/login' ? null : (
+          <Navbar />
+        )}
         <Routes>
           <Route path='/' element={<Dashboard />} />
           <Route path='/activities' element={<Activities />} />
@@ -47,7 +61,9 @@ function App() {
 
           <Route path='/error' element={<h1>error</h1>} />
         </Routes>
-        {pathname.slice(0, 6) === '/admin' ? null : <Footer />}
+        {pathname.slice(0, 6) === '/admin' || pathname === '/login' ? null : (
+          <Footer />
+        )}
         {pathname.slice(0, 6) === '/admin' && pathname !== '/admin-login' ? (
           <AdminSideBar />
         ) : null}
