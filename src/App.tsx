@@ -25,6 +25,7 @@ import Book from './pages/user/Book';
 import { Booking } from './pages/user/Booking';
 import { TailwindIndicator } from './components/TailwindIndicator';
 import { useEffect } from 'react';
+import { UserRegister } from './pages/UserRegister';
 
 function App() {
   const { pathname } = useLocation();
@@ -34,7 +35,7 @@ function App() {
   useEffect(() => {
     if (!user && pathname.slice(0, 6) === '/admin') {
       navigate('/admin-login');
-    } else if (!user && pathname !== '/login') {
+    } else if (!user && pathname !== '/login' && pathname !== '/register') {
       navigate('/login');
     }
   }, [user]);
@@ -42,7 +43,9 @@ function App() {
   return (
     <div className='flex flex-col items-center min-h-screen'>
       <AuthProvider>
-        {pathname.slice(0, 6) === '/admin' || pathname === '/login' ? null : (
+        {pathname.slice(0, 6) === '/admin' ||
+        pathname === '/login' ||
+        pathname === '/register' ? null : (
           <Navbar />
         )}
         <Routes>
@@ -58,10 +61,13 @@ function App() {
           <Route path='/book' element={<Book />} />
           <Route path='/booking' element={<Booking />} />
           <Route path='/login' element={<UserSignIn />} />
+          <Route path='/register' element={<UserRegister />} />
 
           <Route path='/error' element={<h1>error</h1>} />
         </Routes>
-        {pathname.slice(0, 6) === '/admin' || pathname === '/login' ? null : (
+        {pathname.slice(0, 6) === '/admin' ||
+        pathname === '/login' ||
+        pathname === '/register' ? null : (
           <Footer />
         )}
         {pathname.slice(0, 6) === '/admin' && pathname !== '/admin-login' ? (

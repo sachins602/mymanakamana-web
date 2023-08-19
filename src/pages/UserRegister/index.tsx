@@ -14,12 +14,19 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(3).max(100),
-});
+const formSchema = z
+  .object({
+    name: z.string().min(3).max(100),
+    email: z.string().email(),
+    password: z.string().min(3).max(100),
+    confirmPassword: z.string().min(3).max(100),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Password do not match',
+    path: ['confirmPassword'],
+  });
 
-export function UserSignIn() {
+export function UserRegister() {
   const register = useUserLoginMutation();
   const navigate = useNavigate();
   const { signIn } = useAuth();
@@ -50,10 +57,26 @@ export function UserSignIn() {
   }
   return (
     <div className='w-full h-screen bg-[url("/packagesbg.png")] bg-cover bg-center bg-no-repeat'>
-      <div className='w-96 bg-[#F1F6E9] mx-auto mt-48 p-10 space-y-4'>
+      <div className='w-96 bg-[#F1F6E9] mx-auto mt-32 p-10 space-y-4'>
         <img src='/loginimage.png' alt='logo' className='mx-auto ' />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
+            <FormField
+              control={form.control}
+              name='name'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      className='rounded-2xl'
+                      placeholder='Enter Your Full Name'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name='email'
@@ -86,22 +109,38 @@ export function UserSignIn() {
                 </FormItem>
               )}
             />
+            <FormField
+              control={form.control}
+              name='confirmPassword'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      className='rounded-2xl'
+                      placeholder='Re-Enter Your Password'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <a className='flex justify-end' href='/register'>
               <p className='text-left text-blue-300 hover:underline hover:text-blue-600 '>
                 Forgot Password ?
               </p>
             </a>
-            <Button className='bg-[#80AC5D] w-full' type='submit'>
-              Login
+            <Button className='bg-[#B3510A] w-full' type='submit'>
+              Register
             </Button>
           </form>
         </Form>
         <Button
-          onClick={() => navigate('/register')}
-          className='bg-[#B3510A] w-full'
+          onClick={() => navigate('/login')}
+          className='bg-[#80AC5D] w-full'
           type='button'
         >
-          Register
+          Login
         </Button>
       </div>
     </div>
