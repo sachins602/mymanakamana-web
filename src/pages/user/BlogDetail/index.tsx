@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 
 export function BlogDetail() {
   const { state } = useLocation();
-  console.log(state.blogId);
   const { data } = useGetBlogByIdQuery(state.blogId);
   return (
     <div className='w-full'>

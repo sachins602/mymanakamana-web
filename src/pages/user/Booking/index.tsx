@@ -3,12 +3,10 @@ import { useUserBookingsQuery } from '@/hooks/booking.hook';
 
 export function Booking() {
   const { user } = useAuth();
-  console.log(user?.id);
 
   const { data } = useUserBookingsQuery({
     id: user?.id as string,
   });
-  console.log(data?.data);
   return (
     <div>
       <h2>Booking</h2>

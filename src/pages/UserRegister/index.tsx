@@ -52,7 +52,6 @@ export function UserRegister() {
       },
       {
         onSuccess: res => {
-          console.log(res);
           navigate('/login');
           toast({
             variant: 'success',
