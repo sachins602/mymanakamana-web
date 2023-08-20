@@ -46,8 +46,9 @@ export function AdminSignIn() {
         signIn(res);
         toast({
           variant: 'success',
-          title: res.success ? 'Login Success' : 'Login Failed',
-          description: 'Your trip has been booked successfully',
+          title: 'Success',
+          description:
+            'You have been logged in successfull. Please login to continue.',
         });
         form.reset();
         navigate('/admin');
@@ -58,7 +59,7 @@ export function AdminSignIn() {
           variant: 'destructive',
           title: 'Error',
           description:
-            'Something went wrong While booking your trip. Please try again!',
+            'Something went wrong While registring your account. Please try again!',
         });
       },
     });

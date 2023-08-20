@@ -57,7 +57,7 @@ export function UserRegister() {
           toast({
             variant: 'success',
             title: res.message,
-            description: 'Your trip has been booked successfully',
+            description: 'Your account has been created successfully',
           });
           form.reset();
         },
@@ -67,7 +67,7 @@ export function UserRegister() {
             variant: 'destructive',
             title: 'Error',
             description:
-              'Something went wrong While booking your trip. Please try again!',
+              'Something went wrong while creating your account. Please try again!',
           });
         },
       },

@@ -135,7 +135,6 @@ export function AdminBlogAdd() {
             });
             setAuthorImageNameRes(undefined);
             setBlogImageNameRes(undefined);
-
             navigate('/admin/blog/view');
           },
           onError: () => {
@@ -144,7 +143,7 @@ export function AdminBlogAdd() {
               variant: 'destructive',
               title: 'Error',
               description:
-                'Something went wrong While booking your trip. Please try again!',
+                'Something went wrong While adding Blog. Please try again!',
             });
           },
         },

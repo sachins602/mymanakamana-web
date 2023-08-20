@@ -239,7 +239,7 @@ export function AdminEditTrekking({ props }: { props: EditTrip }) {
           toast({
             variant: 'success',
             title: res.api_status,
-            description: 'Your trip has been booked successfully',
+            description: 'Your trip has been edited successfully',
           });
           form.reset();
         },
@@ -249,7 +249,7 @@ export function AdminEditTrekking({ props }: { props: EditTrip }) {
             variant: 'destructive',
             title: 'Error',
             description:
-              'Something went wrong While booking your trip. Please try again!',
+              'Something went wrong While editing your trip. Please try again!',
           });
         },
       },

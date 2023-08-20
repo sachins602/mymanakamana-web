@@ -65,7 +65,6 @@ function Book() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
     bookTrip.mutate(
       {
         _id: '',

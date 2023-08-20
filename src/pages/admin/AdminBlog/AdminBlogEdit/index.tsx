@@ -54,11 +54,10 @@ function AdminBlogEdit({ props }: { props: EditBlogData }) {
       },
       {
         onSuccess: res => {
-          console.log(res);
           toast({
             variant: 'success',
             title: res.api_status,
-            description: 'Your trip has been booked successfully',
+            description: 'Your Blog has been edited successfully',
           });
           form.reset();
         },
@@ -68,7 +67,7 @@ function AdminBlogEdit({ props }: { props: EditBlogData }) {
             variant: 'destructive',
             title: 'Error',
             description:
-              'Something went wrong While booking your trip. Please try again!',
+              'Something went wrong while editing your Blog. Please try again!',
           });
         },
       },

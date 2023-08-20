@@ -98,16 +98,16 @@ export function AdminBooking() {
                               variant: 'success',
                               title: res.api_status,
                               description:
-                                'Your trip has been booked successfully',
+                                'Booking has been cancelled successfully',
                             });
                           },
                           onError: () => {
-                              toast({
-                                variant: 'destructive',
-                                title: 'Error',
-                                description:
-                                  'Something went wrong While booking your trip. Please try again!',
-                              });
+                            toast({
+                              variant: 'destructive',
+                              title: 'Error',
+                              description:
+                                'Something went wrong while cancelling the Booking. Please try again!',
+                            });
                           },
                         },
                       )

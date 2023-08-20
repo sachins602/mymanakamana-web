@@ -331,19 +331,18 @@ export function AdminAddTrekking() {
             toast({
               variant: 'success',
               title: res.api_status,
-              description: 'Your trip has been booked successfully',
+              description: 'Your trip has been added successfully',
             });
             form.reset();
-            console.log('success', res);
           },
           onError: () => {
-              form.reset();
-              toast({
-                variant: 'destructive',
-                title: 'Error',
-                description:
-                  'Something went wrong While booking your trip. Please try again!',
-              });
+            form.reset();
+            toast({
+              variant: 'destructive',
+              title: 'Error',
+              description:
+                'Something went wrong While adding your trip. Please try again!',
+            });
           },
         },
       );

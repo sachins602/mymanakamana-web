@@ -44,11 +44,10 @@ function AdminBlogView() {
       },
       {
         onSuccess: () => {
-          console.log('Delete blog successfully!');
           toast({
             variant: 'success',
             title: 'Success',
-            description: 'Your trip has been booked successfully',
+            description: 'Your Blog has been deleted successfully',
           });
           refetch();
         },
@@ -57,7 +56,7 @@ function AdminBlogView() {
             variant: 'destructive',
             title: 'Error',
             description:
-              'Something went wrong While booking your trip. Please try again!',
+              'Something went wrong While deleting your Blog. Please try again!',
           });
         },
       },

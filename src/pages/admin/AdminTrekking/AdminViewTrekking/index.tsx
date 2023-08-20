@@ -40,7 +40,6 @@ function AdminViewTrekking() {
   const deleteTrekking = useDeleteTrekkingQuery();
 
   function handleDelete(item: TripData): void {
-    console.log(item);
     deleteTrekking.mutate(
       { id: item._id as string },
       {
@@ -49,7 +48,7 @@ function AdminViewTrekking() {
           toast({
             variant: 'success',
             title: res.api_status,
-            description: 'Your trip has been booked successfully',
+            description: 'Your trip has been deleted successfully',
           });
         },
         onError: () => {
@@ -57,7 +56,7 @@ function AdminViewTrekking() {
             variant: 'destructive',
             title: 'Error',
             description:
-              'Something went wrong While booking your trip. Please try again!',
+              'Something went wrong while deleting your trip. Please try again!',
           });
         },
       },
