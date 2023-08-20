@@ -10,28 +10,26 @@ export function PopularTours() {
       <h2 className='pb-12 text-2xl font-semibold text-center'>
         Popular <span className='text-green-500'>Tour Packages</span>
       </h2>
-      <div className='grid md:grid-cols-2 xl:grid-cols-3 gap-11'>
+      <div className='grid justify-center lg:grid-cols-2 xl:grid-cols-3 gap-11'>
         {data?.data?.slice(0, 3).map((destination, i) => {
           return (
             <div
               key={`${destination.name}${i}`}
-              className='w-96 shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
+              className='w-80 shadow-[0_3px_10px_rgb(0,0,0,0.4)]'
             >
               <div>
                 <img src='/about.png' />
               </div>
-              <div className='px-4 pt-2 pb-4 text-sm bg-white'>
+              <div className='px-3 pt-2 pb-2 text-sm bg-white'>
                 <h5 className='text-base font-semibold'>
-                  {' '}
-                  {destination.name}{' '}
+                  d{destination.name}{' '}
                 </h5>
-                <p className='flex items-center py-4 text-xs'>
-                  {' '}
+                <p className='flex items-center py-2 text-xs'>
                   <AiOutlineClockCircle className='text-base' />{' '}
                   <span> Duration: {destination.summary?.duration}</span>{' '}
                 </p>
                 <div className='flex flex-row'>
-                  <div className='pb-5'>
+                  <div className='pb-3'>
                     <h6 className='font-medium pb-1.5'>Starting From</h6>
                     <h5>
                       <span className='text-[#B3510A] font-semibold'>
