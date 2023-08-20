@@ -1,6 +1,9 @@
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
-import { AdminRoute } from './components/PrivateRoutes/PrivateRotues';
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import {
+  AdminRoute,
+  PrivateRoute,
+} from './components/PrivateRoutes/PrivateRotues';
 import { Dashboard } from './pages/user/Dashboard';
 import { AdminDashboard } from './pages/admin/AdminDashboard';
 import { Navbar } from './components/Navbar';
@@ -24,22 +27,11 @@ import { ShortTours } from './pages/user/ShortTours';
 import Book from './pages/user/Book';
 import { Booking } from './pages/user/Booking';
 import { TailwindIndicator } from './components/TailwindIndicator';
-import { useEffect } from 'react';
+
 import { UserRegister } from './pages/UserRegister';
 
 function App() {
   const { pathname } = useLocation();
-  const { user } = useAuth();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user && pathname.slice(0, 6) === '/admin') {
-      navigate('/admin-login');
-    } else if (!user && pathname !== '/login' && pathname !== '/register') {
-      navigate('/login');
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
 
   return (
     <div className='flex flex-col items-center min-h-screen'>
@@ -50,17 +42,87 @@ function App() {
           <Navbar />
         )}
         <Routes>
-          <Route path='/' element={<Dashboard />} />
+          <Route
+            path='/'
+            element={
+              <PrivateRoute>
+                <Dashboard />
+              </PrivateRoute>
+            }
+          />
           <Route path='/activities' element={<Activities />} />
-          <Route path='/trekking' element={<Trekking />} />
-          <Route path='/long-tours' element={<LongTours />} />
-          <Route path='/short-tours' element={<ShortTours />} />
-          <Route path='/about-us' element={<AboutUs />} />
-          <Route path='/blogs' element={<Blogs />} />
-          <Route path='/packages' element={<OurPackages />} />
-          <Route path='/trekDetail' element={<TrekDetail />} />
-          <Route path='/book' element={<Book />} />
-          <Route path='/booking' element={<Booking />} />
+          <Route
+            path='/trekking'
+            element={
+              <PrivateRoute>
+                <Trekking />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/long-tours'
+            element={
+              <PrivateRoute>
+                <LongTours />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/short-tours'
+            element={
+              <PrivateRoute>
+                <ShortTours />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/about-us'
+            element={
+              <PrivateRoute>
+                <AboutUs />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/blogs'
+            element={
+              <PrivateRoute>
+                <Blogs />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/packages'
+            element={
+              <PrivateRoute>
+                <OurPackages />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/trekDetail'
+            element={
+              <PrivateRoute>
+                <TrekDetail />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/book'
+            element={
+              <PrivateRoute>
+                <Book />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/booking'
+            element={
+              <PrivateRoute>
+                <Booking />
+              </PrivateRoute>
+            }
+          />
           <Route path='/login' element={<UserSignIn />} />
           <Route path='/register' element={<UserRegister />} />
 
@@ -76,21 +138,52 @@ function App() {
         ) : null}
         <div className='flex-1 ml-64'>
           <Routes>
-            <Route path='/admin' element={<AdminRoute />}>
-              <Route path='/admin' element={<AdminDashboard />} />
+            <Route
+              path='/admin'
+              element={
+                <AdminRoute>
+                  <AdminDashboard />
+                </AdminRoute>
+              }
+            />
 
-              <Route
-                path='/admin/trekking/add'
-                element={<AdminAddTrekking />}
-              />
-              <Route
-                path='/admin/trekking/view'
-                element={<AdminViewTrekking />}
-              />
-              <Route path='/admin/blog/view' element={<AdminBlogView />} />
-              <Route path='/admin/blog/add' element={<AdminBlogAdd />} />
-              <Route path='/admin/profile' element={<AdminProfile />} />
-            </Route>
+            <Route
+              path='/admin/trekking/add'
+              element={
+                <AdminRoute>
+                  <AdminAddTrekking />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/admin/trekking/view'
+              element={<AdminViewTrekking />}
+            />
+            <Route
+              path='/admin/blog/view'
+              element={
+                <AdminRoute>
+                  <AdminBlogView />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/admin/blog/add'
+              element={
+                <AdminRoute>
+                  <AdminBlogAdd />
+                </AdminRoute>
+              }
+            />
+            <Route
+              path='/admin/profile'
+              element={
+                <AdminRoute>
+                  <AdminProfile />
+                </AdminRoute>
+              }
+            />
+
             <Route path='/admin-login' element={<AdminSignIn />} />
           </Routes>
         </div>

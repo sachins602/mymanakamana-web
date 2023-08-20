@@ -1,5 +1,6 @@
 import { SignInResponseType } from '@/@types/user';
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 export interface AuthContextData {
   user: SignInResponseType | undefined;
@@ -17,6 +18,7 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider: React.FC<Props> = ({ children }) => {
   const [user, setUser] = useState<SignInResponseType>();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const user = localStorage.getItem('user');
@@ -38,6 +40,7 @@ export const AuthProvider: React.FC<Props> = ({ children }) => {
         signOut: () => {
           localStorage.setItem('user', '');
           setUser(undefined);
+          navigate('/login');
         },
       }}
     >
