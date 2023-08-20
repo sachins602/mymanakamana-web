@@ -31,6 +31,7 @@ import { TailwindIndicator } from './components/TailwindIndicator';
 import { UserRegister } from './pages/UserRegister';
 import { AdminBooking } from './pages/admin/AdminBooking';
 import { BlogDetail } from './pages/user/BlogDetail';
+import { Toaster } from './components/ui/toaster';
 
 function App() {
   const { pathname } = useLocation();
@@ -206,6 +207,7 @@ function App() {
           </Routes>
         </div>
       </AuthProvider>
+      <Toaster />
       <TailwindIndicator />
     </div>
   );

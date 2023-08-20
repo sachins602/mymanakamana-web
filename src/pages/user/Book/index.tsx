@@ -15,6 +15,7 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 import { Separator } from '@/components/ui/separator';
+import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useAddBookingMutation } from '@/hooks/booking.hook';
 import { cn } from '@/utils/utils';
@@ -48,6 +49,8 @@ function Book() {
 
   const { user } = useAuth();
 
+  const { toast } = useToast();
+
   const bookTrip = useAddBookingMutation();
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -56,6 +59,8 @@ function Book() {
       package: state.packageName,
       date: new Date(),
       totalTraveller: '1',
+      email: '',
+      name: '',
     },
   });
 
@@ -78,10 +83,20 @@ function Book() {
       },
       {
         onSuccess: res => {
-          console.log(res);
+          toast({
+            variant: 'success',
+            title: res.api_status,
+            description: 'Your trip has been booked successfully',
+          });
+          form.reset();
         },
-        onError: err => {
-          console.log(err);
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description:
+              'Something went wrong While booking your trip. Please try again!',
+          });
         },
       },
     );
