@@ -27,7 +27,6 @@ const formSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   category: z.string().optional(),
-  trip: z.string().optional(),
 });
 
 function AdminBlogEdit({ props }: { props: EditBlogData }) {
@@ -39,7 +38,6 @@ function AdminBlogEdit({ props }: { props: EditBlogData }) {
       name: props.name,
       description: props.description,
       category: props.category,
-      trip: props.trip,
     },
   });
 
@@ -52,7 +50,6 @@ function AdminBlogEdit({ props }: { props: EditBlogData }) {
         name: values.name,
         description: values.description,
         category: values.category,
-        trip: values.trip,
       },
       {
         onSuccess: res => {

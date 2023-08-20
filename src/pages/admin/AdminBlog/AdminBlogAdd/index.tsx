@@ -44,7 +44,6 @@ const formSchema = z.object({
     .optional(),
   description: z.string().optional(),
   category: z.string().optional(),
-  trip: z.string().optional(),
   author: z
     .object({
       id: z.string().optional(),
@@ -116,7 +115,6 @@ export function AdminBlogAdd() {
           image: blogImageNameRes,
           description: formValues.description,
           category: formValues.category,
-          trip: formValues.trip,
           _id: '',
           author: {
             id: '',
@@ -222,20 +220,6 @@ export function AdminBlogAdd() {
                   <Input placeholder='description' {...field} />
                 </FormControl>
                 <FormDescription>Enter your description.</FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name='trip'
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Trip</FormLabel>
-                <FormControl>
-                  <Input placeholder='trip' {...field} />
-                </FormControl>
-                <FormDescription>Enter your trip.</FormDescription>
                 <FormMessage />
               </FormItem>
             )}
