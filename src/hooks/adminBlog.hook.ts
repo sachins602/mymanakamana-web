@@ -30,7 +30,7 @@ export const useAddBlogMutation = () => {
 
 export const useGetBlogByIdQuery = (id: string) => {
   return useQuery(['blog', id], async () => {
-    const response = await fetch(`http://localhost:4000/api/blog/${id}`);
+    const response = await fetch(`http://localhost:4000/api/blog/getById/${id}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
