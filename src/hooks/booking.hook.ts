@@ -10,10 +10,10 @@ export const useAddBookingMutation = () => {
     userId: string;
     name: string;
     email: string;
-    contactNumber?: string;
     totalTraveller: string;
     date: Date;
     price?: string;
+    status?: number;
   }) => {
     const response = await fetch('http://localhost:4000/api/booking', {
       method: 'POST',
