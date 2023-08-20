@@ -24,7 +24,12 @@ export function Booking() {
                 Number(booking.price?.match(/\d+/))}
             </h5>
             <h5>
-              Booking Status: {booking.status === 0 ? 'Pending' : 'Confirmed'}
+              Booking Status:{' '}
+              {booking.status === 0
+                ? 'Pending'
+                : booking.status === 1
+                ? 'Confirmed'
+                : 'Cancelled'}
             </h5>
           </div>
         ))}
