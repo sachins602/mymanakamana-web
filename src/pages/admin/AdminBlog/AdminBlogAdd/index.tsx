@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useToast } from '@/components/ui/use-toast';
 import { useAddBlogMutation } from '@/hooks/adminBlog.hook';
 import { useAddImageMutation } from '@/hooks/image.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -61,6 +62,7 @@ const formSchema = z.object({
 });
 
 export function AdminBlogAdd() {
+  const { toast } = useToast();
   const { mutate: addBlogPhoto, isSuccess: blogSuccess } =
     useAddImageMutation();
   const { mutate: addAuthorPhoto, isSuccess: authorSuccess } =
@@ -126,13 +128,24 @@ export function AdminBlogAdd() {
         {
           onSuccess: () => {
             form.reset();
+            toast({
+              variant: 'success',
+              title: 'Success',
+              description: 'Your Blog has been Added successfully',
+            });
             setAuthorImageNameRes(undefined);
             setBlogImageNameRes(undefined);
 
             navigate('/admin/blog/view');
           },
-          onError: err => {
-            console.log(err, 'error');
+          onError: () => {
+            form.reset();
+            toast({
+              variant: 'destructive',
+              title: 'Error',
+              description:
+                'Something went wrong While booking your trip. Please try again!',
+            });
           },
         },
       );

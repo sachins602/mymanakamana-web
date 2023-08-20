@@ -1,4 +1,5 @@
 import { Button } from '@/components/ui/button';
+import { useToast } from '@/components/ui/use-toast';
 import {
   useAddBookingMutation,
   useAllBookingsQuery,
@@ -6,7 +7,7 @@ import {
 
 export function AdminBooking() {
   const { data, refetch } = useAllBookingsQuery();
-
+  const { toast } = useToast();
   const handleBooking = useAddBookingMutation();
   return (
     <div>
@@ -93,10 +94,20 @@ export function AdminBooking() {
                         {
                           onSuccess: res => {
                             refetch();
-                            console.log(res);
+                            toast({
+                              variant: 'success',
+                              title: res.api_status,
+                              description:
+                                'Your trip has been booked successfully',
+                            });
                           },
-                          onError: error => {
-                            console.log(error);
+                          onError: () => {
+                              toast({
+                                variant: 'destructive',
+                                title: 'Error',
+                                description:
+                                  'Something went wrong While booking your trip. Please try again!',
+                              });
                           },
                         },
                       )

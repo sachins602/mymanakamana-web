@@ -22,6 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
+import { useToast } from '@/components/ui/use-toast';
 
 const formSchema = z.object({
   name: z.string(),
@@ -31,7 +32,7 @@ const formSchema = z.object({
 
 function AdminBlogEdit({ props }: { props: EditBlogData }) {
   const editBlog = useAddBlogMutation();
-
+  const { toast } = useToast();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -54,9 +55,21 @@ function AdminBlogEdit({ props }: { props: EditBlogData }) {
       {
         onSuccess: res => {
           console.log(res);
+          toast({
+            variant: 'success',
+            title: res.api_status,
+            description: 'Your trip has been booked successfully',
+          });
+          form.reset();
         },
-        onError: error => {
-          console.log(error);
+        onError: () => {
+          form.reset();
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description:
+              'Something went wrong While booking your trip. Please try again!',
+          });
         },
       },
     );

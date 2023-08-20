@@ -7,6 +7,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { useUserLoginMutation } from '@/hooks/user.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -23,6 +24,7 @@ export function UserSignIn() {
   const register = useUserLoginMutation();
   const navigate = useNavigate();
   const { signIn } = useAuth();
+  const { toast } = useToast();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -40,11 +42,22 @@ export function UserSignIn() {
     register.mutate(values, {
       onSuccess: res => {
         signIn(res);
-
+        toast({
+          variant: 'success',
+          title: res.success ? 'Login Success' : 'Login Failed',
+          description: 'Your trip has been booked successfully',
+        });
+        form.reset();
         navigate('/');
       },
       onError: () => {
-        console.log('error');
+        form.reset();
+        toast({
+          variant: 'destructive',
+          title: 'Error',
+          description:
+            'Something went wrong While booking your trip. Please try again!',
+        });
       },
     });
   }

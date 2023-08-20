@@ -9,7 +9,7 @@ function CategoryCard({ props }: { props: TripData }) {
   const navigate = useNavigate();
   return (
     <Card
-      key={props._id}
+      key={`${props._id} + ${props.rating}`}
       className='w-80 h-[410px] hover:shadow-lg cursor-pointer'
     >
       <CardHeader>

@@ -18,6 +18,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePostTripQuery } from '@/hooks/adminTrip.hook';
 import { useAddImageMutation } from '@/hooks/image.hook';
@@ -145,6 +146,7 @@ const formFieldList = [
 export function AdminAddTrekking() {
   const addTrekking = usePostTripQuery();
   const { user } = useAuth();
+  const { toast } = useToast();
   const { mutate: addBannerImage, isSuccess: bannerImageSuccess } =
     useAddImageMutation();
   const { mutate: addTripImage, isSuccess: tripImageSuccess } =
@@ -326,10 +328,22 @@ export function AdminAddTrekking() {
         },
         {
           onSuccess: res => {
+            toast({
+              variant: 'success',
+              title: res.api_status,
+              description: 'Your trip has been booked successfully',
+            });
+            form.reset();
             console.log('success', res);
           },
-          onError: error => {
-            console.log('error', error);
+          onError: () => {
+              form.reset();
+              toast({
+                variant: 'destructive',
+                title: 'Error',
+                description:
+                  'Something went wrong While booking your trip. Please try again!',
+              });
           },
         },
       );

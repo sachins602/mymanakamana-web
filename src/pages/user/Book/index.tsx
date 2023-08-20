@@ -91,6 +91,7 @@ function Book() {
           form.reset();
         },
         onError: () => {
+          form.reset();
           toast({
             variant: 'destructive',
             title: 'Error',

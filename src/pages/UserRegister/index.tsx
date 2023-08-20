@@ -7,6 +7,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
+import { useToast } from '@/components/ui/use-toast';
 import { useUserRegisterMutation } from '@/hooks/user.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -27,6 +28,7 @@ const formSchema = z
 
 export function UserRegister() {
   const navigate = useNavigate();
+  const { toast } = useToast();
   const register = useUserRegisterMutation();
 
   // 1. Define your form.
@@ -52,9 +54,21 @@ export function UserRegister() {
         onSuccess: res => {
           console.log(res);
           navigate('/login');
+          toast({
+            variant: 'success',
+            title: res.message,
+            description: 'Your trip has been booked successfully',
+          });
+          form.reset();
         },
-        onError: err => {
-          console.log('error', err);
+        onError: () => {
+          form.reset();
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description:
+              'Something went wrong While booking your trip. Please try again!',
+          });
         },
       },
     );

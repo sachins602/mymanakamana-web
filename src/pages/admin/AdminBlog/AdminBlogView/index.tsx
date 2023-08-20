@@ -31,11 +31,12 @@ import {
 } from '@/hooks/adminBlog.hook';
 import { BlogData, EditBlogData } from '@/@types/user';
 import AdminBlogEdit from '../AdminBlogEdit';
+import { useToast } from '@/components/ui/use-toast';
 
 function AdminBlogView() {
   const { data: blogData, refetch } = useGetAllBlogQuery();
   const deleteBlog = useDeleteBlogMutation();
-
+  const { toast } = useToast();
   function handleDelete(item: BlogData): void {
     deleteBlog.mutate(
       {
@@ -44,10 +45,20 @@ function AdminBlogView() {
       {
         onSuccess: () => {
           console.log('Delete blog successfully!');
+          toast({
+            variant: 'success',
+            title: 'Success',
+            description: 'Your trip has been booked successfully',
+          });
           refetch();
         },
         onError: () => {
-          console.log('Delete blog failed!');
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description:
+              'Something went wrong While booking your trip. Please try again!',
+          });
         },
       },
     );

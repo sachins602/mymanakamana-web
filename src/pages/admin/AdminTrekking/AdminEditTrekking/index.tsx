@@ -19,6 +19,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Switch } from '@/components/ui/switch';
+import { useToast } from '@/components/ui/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
 import { usePostTripQuery } from '@/hooks/adminTrip.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -112,6 +113,7 @@ const formFieldList = [
 export function AdminEditTrekking({ props }: { props: EditTrip }) {
   const addTrekking = usePostTripQuery();
   const { user } = useAuth();
+  const { toast } = useToast();
   // const navigate = useNavigate();
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -234,10 +236,21 @@ export function AdminEditTrekking({ props }: { props: EditTrip }) {
       },
       {
         onSuccess: res => {
-          console.log('success', res);
+          toast({
+            variant: 'success',
+            title: res.api_status,
+            description: 'Your trip has been booked successfully',
+          });
+          form.reset();
         },
-        onError: error => {
-          console.log('error', error);
+        onError: () => {
+          form.reset();
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description:
+              'Something went wrong While booking your trip. Please try again!',
+          });
         },
       },
     );

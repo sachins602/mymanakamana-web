@@ -32,10 +32,11 @@ import {
 import { Button } from '@/components/ui/button';
 import { EditTrip, TripData } from '@/@types/user';
 import { AdminEditTrekking } from '../AdminEditTrekking';
+import { useToast } from '@/components/ui/use-toast';
 
 function AdminViewTrekking() {
   const { data: trekkingData, refetch } = useGetTripsQuery();
-
+  const { toast } = useToast();
   const deleteTrekking = useDeleteTrekkingQuery();
 
   function handleDelete(item: TripData): void {
@@ -45,10 +46,19 @@ function AdminViewTrekking() {
       {
         onSuccess: res => {
           refetch();
-          console.log(res);
+          toast({
+            variant: 'success',
+            title: res.api_status,
+            description: 'Your trip has been booked successfully',
+          });
         },
-        onError: error => {
-          console.log(error);
+        onError: () => {
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description:
+              'Something went wrong While booking your trip. Please try again!',
+          });
         },
       },
     );
