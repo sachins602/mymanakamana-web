@@ -11,7 +11,7 @@ function TrekDetail() {
   const { state } = useLocation();
   const navigate = useNavigate();
   const { data } = useGetIndividualTripQuery({ id: state.tripId });
-  console.log(data?.data);
+
   return (
     <div className='w-full space-y-8 text-center'>
       {/* <img

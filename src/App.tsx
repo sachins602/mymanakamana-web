@@ -30,6 +30,7 @@ import { TailwindIndicator } from './components/TailwindIndicator';
 
 import { UserRegister } from './pages/UserRegister';
 import { AdminBooking } from './pages/admin/AdminBooking';
+import { BlogDetail } from './pages/user/BlogDetail';
 
 function App() {
   const { pathname } = useLocation();
@@ -89,6 +90,14 @@ function App() {
             element={
               <PrivateRoute>
                 <Blogs />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path='/blogDetail'
+            element={
+              <PrivateRoute>
+                <BlogDetail />
               </PrivateRoute>
             }
           />
