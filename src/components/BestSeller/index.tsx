@@ -2,8 +2,11 @@ import { AiFillStar } from 'react-icons/ai';
 import { BsArrowRight } from 'react-icons/bs';
 import { Button } from '../ui/button';
 import { useGetTripsQuery } from '@/hooks/adminTrip.hook';
+import { useNavigate } from 'react-router-dom';
+
 export function BestSeller() {
   const { data } = useGetTripsQuery();
+  const navigate = useNavigate();
 
   return (
     <div className='bg-[#F0FBFA] w-full py-16'>
@@ -55,7 +58,21 @@ export function BestSeller() {
                   </div>
                 </div>
                 <div className='flex items-center justify-center'>
-                  <Button className='px-9 text-[#B3510A]' variant={'ghost'}>
+                  <Button
+                    onClick={() =>
+                      navigate('/book', {
+                        state: {
+                          bookId: destination._id,
+                          packageName: destination.name,
+                          days: destination.summary?.duration,
+                          price: destination.price,
+                          offerPrice: destination.offerPrice,
+                        },
+                      })
+                    }
+                    className='px-9 text-[#B3510A]'
+                    variant={'ghost'}
+                  >
                     Book <BsArrowRight className='ml-2' />
                   </Button>
                 </div>

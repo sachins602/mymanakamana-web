@@ -3,6 +3,7 @@ import { useGetTripsQuery } from '@/hooks/adminTrip.hook';
 
 export function Trekking() {
   const { data } = useGetTripsQuery();
+  console.log(data?.data);
   return (
     <div className='w-full'>
       <img className='w-full h-[450px]' src='/activitiesbg.png' />

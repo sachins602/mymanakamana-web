@@ -1,4 +1,4 @@
-import CategoryCard from '@/components/CategoryCard';
+import ActivitiesCard from '@/components/ActivitiesCard';
 import { useGetTripsQuery } from '@/hooks/adminTrip.hook';
 
 export function Activities() {
@@ -9,7 +9,7 @@ export function Activities() {
       <div className='grid grid-cols-1 gap-4 my-16 place-items-center md:grid-cols-2 lg:grid-cols-3'>
         {data?.data
           ?.filter(data => (data.category === 'Activity' ? data : null))
-          .map(item => <CategoryCard props={item} />)}
+          .map(item => <ActivitiesCard props={item} />)}
       </div>
     </div>
   );

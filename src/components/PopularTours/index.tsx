@@ -1,9 +1,11 @@
 import { AiOutlineClockCircle, AiFillStar } from 'react-icons/ai';
 import { Button } from '../ui/button';
 import { useGetTripsQuery } from '@/hooks/adminTrip.hook';
+import { useNavigate } from 'react-router-dom';
 
 export function PopularTours() {
   const { data } = useGetTripsQuery();
+  const navigate = useNavigate();
 
   return (
     <div className='p-20 md:py-16 py-8 bg-[#F0FBFA]'>
@@ -53,7 +55,23 @@ export function PopularTours() {
                     </p>
                   </div>
                 </div>
-                <Button className='px-9 bg-[#B3510A]'>Book</Button>
+                <Button
+                  type='button'
+                  onClick={() =>
+                    navigate('/book', {
+                      state: {
+                        bookId: destination._id,
+                        packageName: destination.name,
+                        days: destination.summary?.duration,
+                        price: destination.price,
+                        offerPrice: destination.offerPrice,
+                      },
+                    })
+                  }
+                  className='px-9 bg-[#B3510A]'
+                >
+                  Book
+                </Button>
               </div>
             </div>
           );

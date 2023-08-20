@@ -38,7 +38,6 @@ const FormSchema = z.object({
   email: z.string({
     required_error: 'Email is required',
   }),
-  contactNumber: z.string().optional(),
   totalTraveller: z.string({
     required_error: 'Total traveller is required',
   }),
@@ -57,7 +56,6 @@ function Book() {
       package: state.packageName,
       date: new Date(),
       totalTraveller: '1',
-      contactNumber: '',
     },
   });
 
@@ -77,7 +75,6 @@ function Book() {
             ? state.price
             : state.offerPrice,
         totalTraveller: String(data.totalTraveller),
-        contactNumber: data.contactNumber,
       },
       {
         onSuccess: res => {
@@ -173,19 +170,6 @@ function Book() {
                     <FormLabel>Email</FormLabel>
                     <FormControl>
                       <Input placeholder='example@email.com' {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name='contactNumber'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Contact Number</FormLabel>
-                    <FormControl>
-                      <Input placeholder='+977 9846000000' {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
