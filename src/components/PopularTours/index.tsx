@@ -12,7 +12,7 @@ export function PopularTours() {
       <h2 className='pb-12 text-2xl font-semibold text-center'>
         Popular <span className='text-green-500'>Tour Packages</span>
       </h2>
-      <div className='grid justify-center lg:grid-cols-2 xl:grid-cols-3 gap-11'>
+      <div className='grid justify-center gap-8 lg:grid-cols-2 xl:grid-cols-3'>
         {data?.data?.slice(0, 3).map((destination, i) => {
           return (
             <div
@@ -22,7 +22,7 @@ export function PopularTours() {
               <div>
                 <img src='/about.png' />
               </div>
-              <div className='px-3 pt-2 pb-2 text-sm bg-white'>
+              <div className='px-3 pt-1 pb-2 text-sm bg-white'>
                 <h5 className='text-base font-semibold'>
                   d{destination.name}{' '}
                 </h5>
@@ -31,7 +31,7 @@ export function PopularTours() {
                   <span> Duration: {destination.summary?.duration}</span>{' '}
                 </p>
                 <div className='flex flex-row'>
-                  <div className='pb-3'>
+                  <div className='pb-2'>
                     <h6 className='font-medium pb-1.5'>Starting From</h6>
                     <h5>
                       <span className='text-[#B3510A] font-semibold'>
@@ -43,7 +43,7 @@ export function PopularTours() {
                     </h5>
                   </div>
                   <div className='pl-4'>
-                    <div className='flex pb-2 text-lg text-yellow-500'>
+                    <div className='flex pb-1 text-lg text-yellow-500'>
                       <AiFillStar />
                       <AiFillStar />
                       <AiFillStar />
@@ -68,7 +68,7 @@ export function PopularTours() {
                       },
                     })
                   }
-                  className='px-9 bg-[#B3510A]'
+                  className='pl-9 bg-[#B3510A]'
                 >
                   Book
                 </Button>

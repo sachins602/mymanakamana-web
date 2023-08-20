@@ -10,7 +10,7 @@ export function Dashboard() {
       {/* first image */}
       <img className='w-full h-[450px]' src='/packagesbg.png' />
       {/* about us */}
-      <div className='grid items-center w-full place-items-center lg:grid-cols-2 md:p-6 md:shadow-lg shadow-black/20'>
+      <div className='grid items-center m-10 border place-items-center lg:grid-cols-2 md:p-6 md:shadow-lg shadow-black/20'>
         <div className=''>
           <h1 className='py-3 text-2xl font-semibold md:text-3xl md:pb-10 md:pt-5'>
             {' '}

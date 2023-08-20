@@ -27,7 +27,8 @@ export function Navbar() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   return (
-    <div className='flex flex-row h-20 gap-4 p-4'>
+    <div className='flex flex-row w-full gap-4 p-4 justify-evenly h-28'>
+      <img src='/navlogo.png' className='object-fill w-32 h-20' />
       <NavigationMenuHead />
       <DropdownMenu>
         <DropdownMenuTrigger>
