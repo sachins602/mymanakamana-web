@@ -56,7 +56,7 @@ function AdminViewTrekking() {
 
   return (
     <div className='w-full'>
-      <h1>Trekking</h1>
+      <h1>Packages</h1>
       <div className='grid grid-cols-1 gap-8 lg:grid-cols-2 xl:grid-cols-3'>
         {trekkingData?.data?.map((item, index) => (
           <Card key={index} className='w-72 h-80'>

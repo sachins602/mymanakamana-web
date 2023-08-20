@@ -29,6 +29,7 @@ import { Booking } from './pages/user/Booking';
 import { TailwindIndicator } from './components/TailwindIndicator';
 
 import { UserRegister } from './pages/UserRegister';
+import { AdminBooking } from './pages/admin/AdminBooking';
 
 function App() {
   const { pathname } = useLocation();
@@ -158,6 +159,14 @@ function App() {
             <Route
               path='/admin/trekking/view'
               element={<AdminViewTrekking />}
+            />
+            <Route
+              path='/admin/booking'
+              element={
+                <AdminRoute>
+                  <AdminBooking />
+                </AdminRoute>
+              }
             />
             <Route
               path='/admin/blog/view'

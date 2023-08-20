@@ -42,3 +42,14 @@ export const useUserBookingsQuery = ({ id }: { id: string }) => {
     enabled: !!id,
   });
 }
+
+export const useAllBookingsQuery = () => {
+  return useQuery(['allBooking'], async () => {
+    const response = await fetch('http://localhost:4000/api/booking/get-all');
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+
+    return await response.json() as UserBookingResponse;
+  });
+}
