@@ -3,7 +3,8 @@ import { Button } from '../ui/button';
 import { Card, CardHeader, CardContent, CardFooter } from '../ui/card';
 import { useNavigate } from 'react-router-dom';
 import { FaStarHalfAlt } from 'react-icons/fa';
-import { AiFillStar } from 'react-icons/ai';
+import { AiFillStar, AiOutlineFieldTime } from 'react-icons/ai';
+import { FaMountain } from 'react-icons/fa';
 
 function CategoryCard({ props }: { props: TripData }) {
   const navigate = useNavigate();
@@ -20,8 +21,17 @@ function CategoryCard({ props }: { props: TripData }) {
           className='object-cover w-full h-52'
         />
       </CardHeader>
-      <CardContent className='space-y-8'>
+      <CardContent className='space-y-4'>
         <h5 className='text-center line-clamp-1'> {props.name}</h5>
+        <div className='flex flex-row justify-between text-center'>
+          <div className='flex flex-row items-center gap-2 text-slate-500'>
+            <AiOutlineFieldTime />
+            <p>Duration: {props.summary?.duration}</p>
+          </div>
+          <div className='flex flex-row items-center gap-2 text-slate-500'>
+            <FaMountain /> <p> {props.summary?.maxaltitude}</p>
+          </div>
+        </div>
         <div className='flex flex-row justify-between'>
           <div className='flex flex-col'>
             <h6>Strating From: </h6>{' '}

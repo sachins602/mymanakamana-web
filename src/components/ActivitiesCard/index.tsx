@@ -65,7 +65,7 @@ export default function ActivitiesCard({ props }: { props: TripData }) {
           }}
           className='bg-green-700'
         >
-          Book
+          Book Now
         </Button>
       </CardFooter>
     </Card>

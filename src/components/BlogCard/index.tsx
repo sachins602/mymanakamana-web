@@ -2,6 +2,7 @@ import { BlogData } from '@/@types/user';
 import { Button } from '../ui/button';
 import { Card, CardHeader, CardContent, CardFooter } from '../ui/card';
 import { useNavigate } from 'react-router-dom';
+import { BiTimer } from 'react-icons/bi';
 
 function BlogCard({ props }: { props: BlogData }) {
   const navigate = useNavigate();
@@ -20,14 +21,17 @@ function BlogCard({ props }: { props: BlogData }) {
       </CardHeader>
       <CardContent className='space-y-4'>
         <h5 className='line-clamp-1'> {props.name}</h5>
-
-        <h6>{props.updatedon?.toString()}</h6>
+        <div className='flex flex-row gap-1 text-center'>
+          <BiTimer />
+          <p>{props.updatedon?.toString()}</p>
+        </div>
         <div className='flex flex-col'>
           <p className='text-slate-600'>Based on {props.name} reviews</p>
         </div>
       </CardContent>
-      <CardFooter className='flex justify-center mt-2'>
+      <CardFooter className='flex justify-end mt-2'>
         <Button
+          type='button'
           onClick={() => {
             navigate('/blogDetail', {
               state: {
@@ -35,7 +39,7 @@ function BlogCard({ props }: { props: BlogData }) {
               },
             });
           }}
-          className='bg-green-700'
+          className='rounded-none bg-[#B3510A]'
         >
           Read More
         </Button>

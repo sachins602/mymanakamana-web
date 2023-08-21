@@ -27,33 +27,36 @@ export function Navbar() {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   return (
-    <div className='flex flex-row w-full gap-4 p-4 justify-evenly h-28'>
-      <img src='/navlogo.png' className='object-fill w-32 h-20' />
-      <NavigationMenuHead />
-      <DropdownMenu>
-        <DropdownMenuTrigger>
-          <Avatar>
-            <AvatarImage src='https://github.com/shadcn.png' />
-            <AvatarFallback>Profile</AvatarFallback>
-          </Avatar>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent>
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <a href='/booking'>Bookings</a>
-          </DropdownMenuItem>
-          {user ? (
+    <div className='flex flex-col w-full'>
+      <img src='/topnav.svg' className='object-cover w-full h-10' />
+      <div className='flex flex-row w-full h-24 gap-4 p-4 justify-evenly'>
+        <img src='/navlogo.png' className='object-cover w-32 h-16' />
+        <NavigationMenuHead />
+        <DropdownMenu>
+          <DropdownMenuTrigger>
+            <Avatar>
+              <AvatarImage src='https://github.com/shadcn.png' />
+              <AvatarFallback>Profile</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <Button onClick={() => signOut()}>Logout</Button>
+              <a href='/booking'>Bookings</a>
             </DropdownMenuItem>
-          ) : (
-            <DropdownMenuItem>
-              <Button onClick={() => navigate('/login')}>Login</Button>
-            </DropdownMenuItem>
-          )}
-        </DropdownMenuContent>
-      </DropdownMenu>
+            {user ? (
+              <DropdownMenuItem>
+                <Button onClick={() => signOut()}>Logout</Button>
+              </DropdownMenuItem>
+            ) : (
+              <DropdownMenuItem>
+                <Button onClick={() => navigate('/login')}>Login</Button>
+              </DropdownMenuItem>
+            )}
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
     </div>
   );
 }

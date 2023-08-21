@@ -7,9 +7,9 @@ export function BlogDetail() {
   return (
     <div className='w-full'>
       <img className='w-full h-[450px]' src='/activitiesbg.png' />
-      <div className='w-[80%]'>
-        <h3>{data?.data?.[0].name}</h3>
-        <h5>{data?.data?.[0].updatedon?.toString()}</h5>
+      <div className='xl:w-[60%] mx-auto space-y-12'>
+        <h2>{data?.data?.[0].name}</h2>
+        <h6>{data?.data?.[0].updatedon?.toString()}</h6>
         <img
           src={'http://localhost:4000/api/media/file/' + data?.data?.[0].image}
         />
