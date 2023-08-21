@@ -11,6 +11,9 @@ export function Booking() {
     <div>
       <h2>Booking</h2>
       <div className='grid grid-cols-3 gap-8 p-10'>
+        {data?.data && data?.data?.length === 0 && (
+          <h6>You haven't made any bookings yet!!!!</h6>
+        )}
         {data?.data?.map(booking => (
           <div className='p-5 border rounded-md shadow-lg' key={booking._id}>
             <h5>{booking.packageName}</h5>

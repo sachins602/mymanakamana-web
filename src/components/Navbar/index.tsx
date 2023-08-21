@@ -22,9 +22,11 @@ import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '../ui/button';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../ui/use-toast';
 
 export function Navbar() {
   const { user, signOut } = useAuth();
+  const { toast } = useToast();
   const navigate = useNavigate();
   return (
     <div className='flex flex-col w-full'>
@@ -47,7 +49,18 @@ export function Navbar() {
             </DropdownMenuItem>
             {user ? (
               <DropdownMenuItem>
-                <Button onClick={() => signOut()}>Logout</Button>
+                <Button
+                  onClick={() => {
+                    signOut();
+                    toast({
+                      variant: 'success',
+                      title: 'Success',
+                      description: 'Your have been logged out.',
+                    });
+                  }}
+                >
+                  Logout
+                </Button>
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem>
