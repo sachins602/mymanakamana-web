@@ -13,13 +13,6 @@ function PackageCard({ props }: { props: TripData }) {
     <Card
       key={props._id}
       className='w-80 h-[410px] hover:shadow-lg cursor-pointer'
-      onClick={() => {
-        navigate('/book', {
-          state: {
-            id: props._id,
-          },
-        });
-      }}
     >
       <CardHeader>
         <img
@@ -51,7 +44,22 @@ function PackageCard({ props }: { props: TripData }) {
         </div>
       </CardContent>
       <CardFooter className='flex mt-2'>
-        <Button>Book Now</Button>
+        <Button
+          type='button'
+          onClick={() =>
+            navigate('/book', {
+              state: {
+                bookId: props._id,
+                packageName: props.name,
+                days: props.summary?.duration,
+                price: props.price,
+                offerPrice: props.offerPrice,
+              },
+            })
+          }
+        >
+          Book Now
+        </Button>
       </CardFooter>
     </Card>
   );
