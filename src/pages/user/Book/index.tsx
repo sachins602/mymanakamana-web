@@ -235,6 +235,7 @@ function Book() {
           </div>
         </div>
       </div>
+      <img className='object-cover w-full h-26' src='/assosiated.svg' />
     </div>
   );
 }
