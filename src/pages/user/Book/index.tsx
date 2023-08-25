@@ -204,7 +204,7 @@ function Book() {
                 )}
               />
 
-              <Button className='bg-[#B3510A]' type='submit'>
+              <Button className='bg-[#B3510A] mt-8' type='submit'>
                 Book
               </Button>
             </form>
