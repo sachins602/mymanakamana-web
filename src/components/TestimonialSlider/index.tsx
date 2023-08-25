@@ -1,53 +1,50 @@
-"use client"
+'use client';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/navigation';
-import { AiFillStar } from 'react-icons/ai'
-
+import { AiFillStar } from 'react-icons/ai';
+import { useGetAllBlogQuery } from '@/hooks/adminBlog.hook';
 
 export function TestimonialSlider() {
+  const { data } = useGetAllBlogQuery();
 
-  const testimonialList = [
-    {
-      name: "Jack Grealish",
-      title: "Manchester, England l Aug 02,2022",
-      rating: 5,
-      place_name: "Wonderful Base Camp Trekking",
-      review_text: "Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus."
-
-    },
-    {
-      name: "Jack Grealish",
-      title: "Manchester, England l Aug 02,2022",
-      rating: 5,
-      place_name: "Wonderful Base Camp Trekking",
-      review_text: "Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus."
-
-    },
-    {
-      name: "Jack Grealish",
-      title: "Manchester, England l Aug 02,2022",
-      rating: 5,
-      place_name: "Wonderful Base Camp Trekking",
-      review_text: "Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus."
-
-    },
-    {
-      name: "Jack Grealish",
-      title: "Manchester, England l Aug 02,2022",
-      rating: 5,
-      place_name: "Wonderful Base Camp Trekking",
-      review_text: "Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus."
-
-    },
-
-
-  ]
+  //   {
+  //     name: 'Jack Grealish',
+  //     title: 'Manchester, England l Aug 02,2022',
+  //     rating: 5,
+  //     place_name: 'Wonderful Base Camp Trekking',
+  //     review_text:
+  //       'Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.',
+  //   },
+  //   {
+  //     name: 'Jack Grealish',
+  //     title: 'Manchester, England l Aug 02,2022',
+  //     rating: 5,
+  //     place_name: 'Wonderful Base Camp Trekking',
+  //     review_text:
+  //       'Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.',
+  //   },
+  //   {
+  //     name: 'Jack Grealish',
+  //     title: 'Manchester, England l Aug 02,2022',
+  //     rating: 5,
+  //     place_name: 'Wonderful Base Camp Trekking',
+  //     review_text:
+  //       'Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.',
+  //   },
+  //   {
+  //     name: 'Jack Grealish',
+  //     title: 'Manchester, England l Aug 02,2022',
+  //     rating: 5,
+  //     place_name: 'Wonderful Base Camp Trekking',
+  //     review_text:
+  //       'Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.',
+  //   },
+  // ];
   return (
-    <div className='lg:pl-28 md:pl-10 relative flex items-center'>
-
+    <div className='relative flex items-center lg:pl-28 md:pl-10'>
       <Swiper
         breakpoints={{
           // when window width is >= 640px
@@ -60,21 +57,24 @@ export function TestimonialSlider() {
           },
         }}
         spaceBetween={40}
-        navigation={true}
         style={{
-          padding: "30px"
+          padding: '30px',
         }}
       >
-        {
-          testimonialList.map((destination, key) => {
-            return <SwiperSlide className={` shadow-[0_3px_10px_rgb(0,0,0,0.4)] `} key={key}>
+        {data?.data?.map((destination, key) => {
+          return (
+            <SwiperSlide
+              className={` shadow-[0_3px_10px_rgb(0,0,0,0.4)] `}
+              key={key}
+            >
+              <div className='px-4 pt-10 pb-4 text-sm bg-white h-60'>
+                <h5 className='text-sm font-semibold'> {destination.name} </h5>
+                <p className='flex items-center py-4 text-xs'>
+                  {' '}
+                  {destination.trip}{' '}
+                </p>
 
-              <div className="bg-white px-4 pb-4 text-sm pt-10">
-                <h5 className="font-semibold text-sm"> {destination.name} </h5>
-                <p className="flex items-center py-4 text-xs"> {destination.title} </p>
-
-
-                <div className="flex text-yellow-500 pb-2 text-lg">
+                <div className='flex pb-2 text-lg text-yellow-500'>
                   <AiFillStar />
                   <AiFillStar />
                   <AiFillStar />
@@ -82,19 +82,19 @@ export function TestimonialSlider() {
                   <AiFillStar />
                 </div>
 
-                <h5 className="font-semibold text-xs"> {destination.name} </h5>
-                <p className="flex items-center py-4 text-xs"> {destination.review_text} </p>
-
+                <h5 className='text-xs font-semibold'> {destination.name} </h5>
+                <p className='flex items-center h-20 py-4 overflow-hidden text-xs'>
+                  {' '}
+                  {destination.description}{' '}
+                </p>
               </div>
 
-              <div className="absolute -translate-y-[50%] top-0 translate-x-[30%] z-50">
-                <img src="/man.png" />
+              <div className='absolute -translate-y-[50%] top-0 translate-x-[30%] z-50'>
+                <img src='/man.png' />
               </div>
-
             </SwiperSlide>
-          })
-        }
-
+          );
+        })}
       </Swiper>
     </div>
   );
