@@ -30,7 +30,7 @@ function TrekDetail() {
           <div className='flex flex-row items-center'>
             <AiFillCalendar /> <h4>Duration</h4>
           </div>
-          <h6>{data?.data?.summary?.duration}</h6>
+          <h5 className='my-auto'>{data?.data?.summary?.duration}</h5>
         </div>
         <Separator orientation='vertical' />
         <div className='flex flex-col items-center w-60'>
@@ -48,14 +48,14 @@ function TrekDetail() {
           <div className='flex flex-row items-center'>
             <AiFillCalendar /> <h4>Accomodation</h4>
           </div>
-          <h6>{data?.data?.summary?.accomodation}</h6>
+          <h5 className='my-auto'>{data?.data?.summary?.accomodation}</h5>
         </div>
         <Separator orientation='vertical' />
         <div className='flex flex-col items-center w-40'>
           <div className='flex flex-row items-center'>
             <AiFillCalendar /> <h4>Meals</h4>
           </div>
-          <h6>{data?.data?.summary?.meals}</h6>
+          <h5 className='my-auto'>{data?.data?.summary?.meals}</h5>
         </div>
       </div>
 

@@ -74,7 +74,7 @@ export function UserRegister() {
   }
   return (
     <div className='w-full h-screen bg-[url("/packagesbg.png")] bg-cover bg-center bg-no-repeat'>
-      <div className='w-96 bg-[#F1F6E9] mx-auto mt-32 p-10 space-y-4'>
+      <div className='w-96 bg-[#F1F6E9] mx-auto mt-12 p-10 space-y-4'>
         <img src='/loginimage.png' alt='logo' className='mx-auto ' />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
