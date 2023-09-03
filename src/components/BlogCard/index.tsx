@@ -9,7 +9,7 @@ function BlogCard({ props }: { props: BlogData }) {
   return (
     <Card
       key={props._id}
-      className='w-80 h-[410px] hover:shadow-lg cursor-pointer'
+      className='w-80 h-[410px] hover:shadow-lg cursor-pointer bg-slate-100'
     >
       <CardHeader>
         <img

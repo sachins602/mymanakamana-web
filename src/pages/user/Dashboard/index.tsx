@@ -8,7 +8,7 @@ export function Dashboard() {
   return (
     <div className='w-full'>
       {/* first image */}
-      <img className='w-full h-[450px]' src='/packagesbg.png' />
+      <img className='w-full h-[450px]' src='/homecover.png' />
       {/* about us */}
       <div className='grid items-center m-10 border place-items-center lg:grid-cols-2 md:p-6 md:shadow-lg shadow-black/20'>
         <div className=''>
