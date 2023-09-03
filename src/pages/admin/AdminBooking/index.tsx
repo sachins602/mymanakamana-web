@@ -9,6 +9,7 @@ export function AdminBooking() {
   const { data, refetch } = useAllBookingsQuery();
   const { toast } = useToast();
   const handleBooking = useAddBookingMutation();
+
   return (
     <div>
       <h3>Bookings</h3>
@@ -59,18 +60,39 @@ export function AdminBooking() {
                 <div className='space-x-6'>
                   <Button
                     onClick={() =>
-                      handleBooking.mutate({
-                        _id: item._id as string,
-                        totalTraveller: item.totalTraveller as string,
-                        packageId: item.packageId as string,
-                        userId: item.userId as string,
-                        date: item.date as Date,
-                        email: item.email as string,
-                        name: item.name as string,
-                        packageName: item.packageName as string,
-                        price: item.price as string,
-                        status: 1,
-                      })
+                      handleBooking.mutate(
+                        {
+                          _id: item._id as string,
+                          totalTraveller: item.totalTraveller as string,
+                          packageId: item.packageId as string,
+                          userId: item.userId as string,
+                          date: item.date as Date,
+                          email: item.email as string,
+                          name: item.name as string,
+                          packageName: item.packageName as string,
+                          price: item.price as string,
+                          status: 1,
+                        },
+                        {
+                          onSuccess: res => {
+                            refetch();
+                            toast({
+                              variant: 'success',
+                              title: res.api_status,
+                              description:
+                                'Booking has been confirmed successfully',
+                            });
+                          },
+                          onError: () => {
+                            toast({
+                              variant: 'destructive',
+                              title: 'Error',
+                              description:
+                                'Something went wrong while confirming the Booking. Please try again!',
+                            });
+                          },
+                        },
+                      )
                     }
                     className='bg-green-500 px-9'
                   >
