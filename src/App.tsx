@@ -32,6 +32,7 @@ import { UserRegister } from './pages/UserRegister';
 import { AdminBooking } from './pages/admin/AdminBooking';
 import { BlogDetail } from './pages/user/BlogDetail';
 import { Toaster } from './components/ui/toaster';
+import { UserForgotPassword } from './pages/UserForgotPassword';
 
 function App() {
   const { pathname } = useLocation();
@@ -41,7 +42,8 @@ function App() {
       <AuthProvider>
         {pathname.slice(0, 6) === '/admin' ||
         pathname === '/login' ||
-        pathname === '/register' ? null : (
+        pathname === '/register' ||
+        pathname === '/forgot-password' ? null : (
           <Navbar />
         )}
         <Routes>
@@ -136,12 +138,14 @@ function App() {
           />
           <Route path='/login' element={<UserSignIn />} />
           <Route path='/register' element={<UserRegister />} />
+          <Route path='/forgot-password' element={<UserForgotPassword />} />
 
           <Route path='/error' element={<h1>error</h1>} />
         </Routes>
         {pathname.slice(0, 6) === '/admin' ||
         pathname === '/login' ||
-        pathname === '/register' ? null : (
+        pathname === '/register' ||
+        pathname === '/forgot-password' ? null : (
           <Footer />
         )}
         {pathname.slice(0, 6) === '/admin' && pathname !== '/admin-login' ? (

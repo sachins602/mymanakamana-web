@@ -142,11 +142,6 @@ export function UserRegister() {
                 </FormItem>
               )}
             />
-            <a className='flex justify-end' href='/register'>
-              <p className='text-left text-blue-300 hover:underline hover:text-blue-600 '>
-                Forgot Password ?
-              </p>
-            </a>
             <Button className='bg-[#B3510A] w-full' type='submit'>
               Register
             </Button>

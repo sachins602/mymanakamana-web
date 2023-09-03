@@ -8,23 +8,27 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { useToast } from '@/components/ui/use-toast';
-import { useAuth } from '@/contexts/AuthContext';
-import { useUserLoginMutation } from '@/hooks/user.hook';
+import { useUserForgotPasswordMutation } from '@/hooks/user.hook';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import * as z from 'zod';
 
-const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(3).max(100),
-});
+const formSchema = z
+  .object({
+    email: z.string().email(),
+    password: z.string().min(3).max(100),
+    confirmPassword: z.string().min(3).max(100),
+  })
+  .refine(data => data.password === data.confirmPassword, {
+    message: 'Password do not match',
+    path: ['confirmPassword'],
+  });
 
-export function UserSignIn() {
-  const register = useUserLoginMutation();
+export function UserForgotPassword() {
   const navigate = useNavigate();
-  const { signIn } = useAuth();
   const { toast } = useToast();
+  const forgotPassword = useUserForgotPasswordMutation();
 
   // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
@@ -39,31 +43,38 @@ export function UserSignIn() {
   function onSubmit(values: z.infer<typeof formSchema>) {
     // Do something with the form values.
     // ✅ This will be type-safe and validated.
-    register.mutate(values, {
-      onSuccess: res => {
-        signIn(res);
-        toast({
-          variant: 'success',
-          title: 'Success',
-          description: 'Your have been logged in successfully',
-        });
-        form.reset();
-        navigate('/');
+    forgotPassword.mutate(
+      {
+        email: values.email,
+        password: values.password,
       },
-      onError: () => {
-        form.reset();
-        toast({
-          variant: 'destructive',
-          title: 'Error',
-          description:
-            'Something went wrong while logging into your account. Please try again!',
-        });
+      {
+        onSuccess: res => {
+          navigate('/login');
+          console.log(res);
+          toast({
+            variant: 'success',
+            title: res.message,
+            description: 'Your account has been created successfully',
+          });
+          form.reset();
+        },
+        onError: err => {
+          console.log(err);
+          form.reset();
+          toast({
+            variant: 'destructive',
+            title: 'Error',
+            description:
+              'Something went wrong while creating your account. Please try again!',
+          });
+        },
       },
-    });
+    );
   }
   return (
     <div className='w-full h-screen bg-[url("/packagesbg.png")] bg-cover bg-center bg-no-repeat'>
-      <div className='w-96 bg-[#F1F6E9] mt-32 mx-auto p-6 space-y-4'>
+      <div className='w-96 bg-[#F1F6E9] mx-auto mt-12 p-10 space-y-4'>
         <img src='/loginimage.png' alt='logo' className='mx-auto ' />
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
@@ -99,22 +110,33 @@ export function UserSignIn() {
                 </FormItem>
               )}
             />
-            <a className='flex justify-end' href='/forgot-password'>
-              <p className='text-left text-blue-300 hover:underline hover:text-blue-600 '>
-                Forgot Password ?
-              </p>
-            </a>
-            <Button className='bg-[#80AC5D] w-full' type='submit'>
-              Login
+            <FormField
+              control={form.control}
+              name='confirmPassword'
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      className='rounded-2xl'
+                      placeholder='Re-Enter Your Password'
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button className='bg-[#B3510A] w-full' type='submit'>
+              Send Verification
             </Button>
           </form>
         </Form>
         <Button
-          onClick={() => navigate('/register')}
-          className='bg-[#B3510A] w-full'
+          onClick={() => navigate('/login')}
+          className='bg-[#80AC5D] w-full'
           type='button'
         >
-          Register
+          Login
         </Button>
       </div>
     </div>
