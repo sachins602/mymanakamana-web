@@ -4,7 +4,7 @@ import { useMutation, useQueries, useQuery } from '@tanstack/react-query';
 
 export const useAddImageMutation = () => {
   return useMutation(['postImage'], async (data: FormData) => {
-    const response = await fetch('http://localhost:4000/api/media/upload', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}media/upload`, {
       method: 'POST',
       body: data,
     });
@@ -20,7 +20,7 @@ export const useAddImageMutation = () => {
 
 export const useGetImageQuery = ({ fileName }: { fileName: string }) => {
   return useQuery(['image'], async () => {
-    const response = await fetch(`http://localhost:4000/api/media/file/${fileName}`);
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}media/file/${fileName}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -33,7 +33,7 @@ export const useCallMultipleImagesQuery = ({ fileNames }: { fileNames: string[] 
     queries: fileNames.map((fileName) => ({
       queryKey: ['image', fileName],
       queryFn: async () => {
-        const response = await fetch(`http://localhost:4000/api/media/file/${fileName}`);
+        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}media/file/${fileName}`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

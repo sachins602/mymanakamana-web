@@ -11,7 +11,10 @@ export function BlogDetail() {
         <h2>{data?.data?.[0].name}</h2>
         <h6>{data?.data?.[0].updatedon?.toString()}</h6>
         <img
-          src={'http://localhost:4000/api/media/file/' + data?.data?.[0].image}
+          src={
+            `${import.meta.env.VITE_BACKEND_URL}media/file/` +
+            data?.data?.[0].image
+          }
         />
         <p>{data?.data?.[0].description}</p>
       </div>

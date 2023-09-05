@@ -113,7 +113,10 @@ function AdminViewTrekking() {
             <CardContent>
               <img
                 className=''
-                src={'http://localhost:4000/api/media/file/' + item.bannerImage}
+                src={
+                  `${import.meta.env.VITE_BACKEND_URL}media/file/` +
+                  item.bannerImage
+                }
                 alt={item.name}
               />
             </CardContent>

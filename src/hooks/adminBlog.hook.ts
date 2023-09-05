@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useGetAllBlogQuery = () => {
   return useQuery(['blog'], async () => {
-    const response = await fetch('http://localhost:4000/api/blog/get-all');
+    const response = await fetch('http://localhost:4000/apis/blog/get-all');
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -13,7 +13,7 @@ export const useGetAllBlogQuery = () => {
 
 export const useAddBlogMutation = () => {
   return useMutation(async (data: AddBlogData) => {
-    const response = await fetch('http://localhost:4000/api/blog/', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}blog/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -30,7 +30,7 @@ export const useAddBlogMutation = () => {
 
 export const useGetBlogByIdQuery = (id: string) => {
   return useQuery(['blog', id], async () => {
-    const response = await fetch(`http://localhost:4000/api/blog/getById/${id}`);
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}blog/getById/${id}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -40,7 +40,7 @@ export const useGetBlogByIdQuery = (id: string) => {
 
 export const useDeleteBlogMutation = () => {
   return useMutation(async ({ id }: { id?: string }) => {
-    const response = await fetch(`http://localhost:4000/api/blog/delete/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}blog/delete/${id}`, {
       method: 'DELETE',
     });
 

@@ -113,7 +113,9 @@ function AdminBlogView() {
             <CardContent>
               <img
                 className=''
-                src={'http://localhost:4000/api/media/file/' + item.image}
+                src={
+                  `${import.meta.env.VITE_BACKEND_URL}media/file/` + item.image
+                }
                 alt={item.name}
               />
             </CardContent>

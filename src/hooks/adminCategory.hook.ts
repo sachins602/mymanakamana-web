@@ -11,7 +11,7 @@ export const useAddCategoryMutation = () => {
     createdBy: string;
     status: boolean
   }) => {
-    const response = await fetch('http://localhost:4000/api/category/', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}category/`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -28,7 +28,7 @@ export const useAddCategoryMutation = () => {
 
 export const useGetAllCategoryQuery = () => {
   return useQuery(['category'], async () => {
-    const response = await fetch('http://localhost:4000/api/category/get-all');
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}category/get-all`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -38,7 +38,7 @@ export const useGetAllCategoryQuery = () => {
 
 export const useDeleteCategoryQuery = () => {
   return useMutation(async ({ id }: { id: string }) => {
-    const response = await fetch(`http://localhost:4000/api/category/delete/${id}`, {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}category/delete/${id}`, {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
     });

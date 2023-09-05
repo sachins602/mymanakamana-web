@@ -15,7 +15,7 @@ export const useAddBookingMutation = () => {
     price?: string;
     status?: number;
   }) => {
-    const response = await fetch('http://localhost:4000/api/booking', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}booking`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -32,7 +32,7 @@ export const useAddBookingMutation = () => {
 
 export const useUserBookingsQuery = ({ id }: { id: string }) => {
   return useQuery(['userBooking'], async () => {
-    const response = await fetch(`http://localhost:4000/api/booking/getByUser/${id}`);
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}booking/getByUser/${id}`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
@@ -45,7 +45,7 @@ export const useUserBookingsQuery = ({ id }: { id: string }) => {
 
 export const useAllBookingsQuery = () => {
   return useQuery(['allBooking'], async () => {
-    const response = await fetch('http://localhost:4000/api/booking/get-all');
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}booking/get-all`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }

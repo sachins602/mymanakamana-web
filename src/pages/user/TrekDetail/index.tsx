@@ -15,7 +15,7 @@ function TrekDetail() {
   return (
     <div className='w-full space-y-8 text-center'>
       {/* <img
-        src={'http://localhost:4000/api/media/file/' + data?.data?.tripImage}
+        src={`${import.meta.env.VITE_BACKEND_URL}media/file/` + data?.data?.tripImage}
         alt={data?.data?.name}
       /> */}
       <img
@@ -128,7 +128,7 @@ function TrekDetail() {
           />
           {/* <img
             className='object-cover w-full h-96'
-            src={'http://localhost:4000/api/media/file/' + data?.data?.mapImage}
+            src={`${import.meta.env.VITE_BACKEND_URL}media/file/` + data?.data?.mapImage}
             alt={data?.data?.name}
           /> */}
         </TabsContent>

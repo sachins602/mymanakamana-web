@@ -7,7 +7,7 @@ export const useAdminLoginMutation = () => {
     email: string;
     password: string;
   }) => {
-    const response = await fetch('http://localhost:4000/api/authentication/sign-in', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}authentication/sign-in`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),

@@ -7,7 +7,7 @@ export const useUserLoginMutation = () => {
     email: string;
     password: string;
   }) => {
-    const response = await fetch('http://localhost:4000/api/authentication/sign-in', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}authentication/sign-in`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -28,7 +28,7 @@ export const useUserRegisterMutation = () => {
     email: string;
     password: string;
   }) => {
-    const response = await fetch('http://localhost:4000/api/authentication/sign-up', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}authentication/sign-up`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
@@ -48,7 +48,7 @@ export const useUserForgotPasswordMutation = () => {
     email: string;
     password: string;
   }) => {
-    const response = await fetch('http://localhost:4000/api/authentication/forgotpassword', {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}authentication/forgotpassword`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
