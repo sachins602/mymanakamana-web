@@ -3,7 +3,7 @@ import { useMutation, useQuery } from "@tanstack/react-query";
 
 export const useGetAllBlogQuery = () => {
   return useQuery(['blog'], async () => {
-    const response = await fetch('http://localhost:4000/apis/blog/get-all');
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}blog/get-all`);
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
