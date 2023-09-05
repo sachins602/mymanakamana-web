@@ -26,7 +26,7 @@ import { LongTours } from './pages/user/LongTours';
 import { ShortTours } from './pages/user/ShortTours';
 import Book from './pages/user/Book';
 import { Booking } from './pages/user/Booking';
-import { TailwindIndicator } from './components/TailwindIndicator';
+// import { TailwindIndicator } from './components/TailwindIndicator';
 
 import { UserRegister } from './pages/UserRegister';
 import { AdminBooking } from './pages/admin/AdminBooking';
@@ -212,7 +212,7 @@ function App() {
         </div>
       </AuthProvider>
       <Toaster />
-      <TailwindIndicator />
+      {/* <TailwindIndicator /> */}
     </div>
   );
 }
