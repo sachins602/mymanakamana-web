@@ -16,8 +16,9 @@ function PackageCard({ props }: { props: TripData }) {
     >
       <CardHeader>
         <img
-          src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4CtaDk3U49ukzwQTk5h6n1mwtWT9HULw-piOF2eF4&s'
-          // src={`${import.meta.env.VITE_BACKEND_URL}media/file/` + props.tripImage}
+          src={
+            `${import.meta.env.VITE_BACKEND_URL}media/file/` + props.tripImage
+          }
           alt={props.name}
           className='object-cover w-full h-56'
         />
