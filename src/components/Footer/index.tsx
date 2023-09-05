@@ -6,7 +6,7 @@ import {
 
 export function Footer() {
   return (
-    <footer className='w-full text-white p-4 border-t shadow md:flex md:items-center md:justify-between md:p-6 bg-[url("./footerbg.png")]'>
+    <footer className="w-full text-white p-4 border-t shadow md:flex md:items-center md:justify-between md:p-6 bg-[url('/footerbg.png')]">
       <div className='grid gap-10 lg:grid-cols-4 md:grid-cols-2 md:gap-20'>
         <div>
           <h2 className='text-xl font-bold'>Contact Us</h2>
