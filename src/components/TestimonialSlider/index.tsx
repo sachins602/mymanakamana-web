@@ -1,5 +1,3 @@
-'use client';
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
 import 'swiper/css';
@@ -10,39 +8,6 @@ import { useGetAllBlogQuery } from '@/hooks/adminBlog.hook';
 export function TestimonialSlider() {
   const { data } = useGetAllBlogQuery();
 
-  //   {
-  //     name: 'Jack Grealish',
-  //     title: 'Manchester, England l Aug 02,2022',
-  //     rating: 5,
-  //     place_name: 'Wonderful Base Camp Trekking',
-  //     review_text:
-  //       'Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.',
-  //   },
-  //   {
-  //     name: 'Jack Grealish',
-  //     title: 'Manchester, England l Aug 02,2022',
-  //     rating: 5,
-  //     place_name: 'Wonderful Base Camp Trekking',
-  //     review_text:
-  //       'Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.',
-  //   },
-  //   {
-  //     name: 'Jack Grealish',
-  //     title: 'Manchester, England l Aug 02,2022',
-  //     rating: 5,
-  //     place_name: 'Wonderful Base Camp Trekking',
-  //     review_text:
-  //       'Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.',
-  //   },
-  //   {
-  //     name: 'Jack Grealish',
-  //     title: 'Manchester, England l Aug 02,2022',
-  //     rating: 5,
-  //     place_name: 'Wonderful Base Camp Trekking',
-  //     review_text:
-  //       'Corem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim, metus nec fringilla accumsan, risus sem sollicitudin lacus, ut interdum tellus elit sed risus. Maecenas eget condimentum velit, sit amet feugiat lectus.',
-  //   },
-  // ];
   return (
     <div className='relative flex items-center lg:pl-28 md:pl-10'>
       <Swiper
