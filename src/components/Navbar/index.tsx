@@ -31,7 +31,8 @@ export function Navbar() {
   return (
     <div className='flex flex-col w-full'>
       <img src='/topnav.svg' className='object-cover w-full h-10' />
-      <div className='flex flex-row w-full h-24 gap-4 p-4 justify-evenly'>
+
+      <div className='flex flex-row items-center w-full sm:gap-4 h-52 sm:h-24 sm:p-4 justify-evenly'>
         <img src='/navlogo.png' className='object-cover w-32 h-16' />
         <NavigationMenuHead />
         <DropdownMenu>

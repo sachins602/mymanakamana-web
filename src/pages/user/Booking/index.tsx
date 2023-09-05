@@ -10,7 +10,7 @@ export function Booking() {
   return (
     <div>
       <h2>Booking</h2>
-      <div className='grid grid-cols-3 gap-8 p-10'>
+      <div className='grid grid-cols-1 gap-8 p-10 md:grid-cols-2 lg:grid-cols-3'>
         {data?.data && data?.data?.length === 0 && (
           <h6>You haven't made any bookings yet!!!!</h6>
         )}
@@ -47,7 +47,7 @@ export function Booking() {
                   <h5>Pending</h5>
                 </div>
               ) : booking.status === 1 ? (
-                <div>
+                <div className='flex flex-row'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='text-green-400 w-7 h-7'
@@ -63,7 +63,7 @@ export function Booking() {
                   <h5>Success</h5>
                 </div>
               ) : (
-                <div>
+                <div className='flex flex-row'>
                   <svg
                     xmlns='http://www.w3.org/2000/svg'
                     className='text-red-500 w-7 h-7'
